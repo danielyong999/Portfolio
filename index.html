@@ -32,7 +32,7 @@
     cursor: auto;
   }
 
-  /* Custom Cursor */
+  /* ─── Mobile Click Fix ─── */
   .cursor {
     display: none;
     position: fixed;
@@ -133,9 +133,7 @@
     position: relative;
     overflow: hidden;
   }
-  .hero-bg-text {
-    display: none;
-  }
+  .hero-bg-text { display: none; }
   .hero-content { position: relative; z-index: 2; }
   .hero-eyebrow {
     font-size: 11px;
@@ -287,20 +285,25 @@
     margin-bottom: 64px;
   }
   .filter-btn {
-    padding: 8px 20px;
-    border: 1px solid var(--grey-2);
-    border-radius: 8px;
-    background: none;
+    padding: 12px 24px;
+    border: 1.5px solid var(--grey-2);
+    border-radius: 12px;
+    background: var(--white);
     font-family: var(--font-body);
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--grey-3);
-    cursor: none;
-    transition: all 0.2s ease;
+    cursor: pointer;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
   }
-  .filter-btn:hover, .filter-btn.active {
+  .filter-btn:hover {
+    border-color: var(--black);
+    color: var(--black);
+  }
+  .filter-btn.active {
     background: var(--black);
     border-color: var(--black);
     color: var(--white);
@@ -309,7 +312,7 @@
   .works-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 2px;
+    gap: 16px;
   }
 
   .project-card {
@@ -317,15 +320,17 @@
     overflow: hidden;
     background: var(--grey-1);
     cursor: none;
-    border-radius: 12px;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .project-card:hover {
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
   }
   
-  /* Default layout - Design, Branding, Motion */
   .project-card[data-type="design"] { grid-column: span 12; }
   .project-card[data-type="branding"] { grid-column: span 12; }
   .project-card[data-type="motion"] { grid-column: span 12; }
-  
-  /* Illustration & Video - 2 per row (6 columns each) */
   .project-card[data-type="illustration"] { grid-column: span 6; }
   .project-card[data-type="video"] { grid-column: span 6; }
   .project-card[data-type="ai"] { grid-column: span 6; }
@@ -368,7 +373,6 @@
   .project-arrow { z-index: 5; }
   .project-card:hover .project-visual { transform: scale(1.04); }
 
-  /* Placeholder visuals using geometric compositions */
   .vis-1 { background: #1a1a1a; }
   .vis-2 { background: #f0ece4; }
   .vis-3 { background: #0d0d0d; }
@@ -383,7 +387,6 @@
     opacity: 0.6;
   }
 
-  /* Vis 1 — large dark */
   .vis-1 .vs-a { width: 300px; height: 300px; background: #333; top: 20%; left: 15%; }
   .vis-1 .vs-b { width: 180px; height: 180px; background: #555; bottom: 25%; right: 20%; border-radius: 0; }
   .vis-1 .vs-c { width: 80px; height: 80px; background: #888; top: 60%; left: 45%; }
@@ -397,21 +400,6 @@
     bottom: 40px;
     right: 40px;
   }
-  /* Vis 2 */
-  .vis-2 .vs-a { width: 220px; height: 220px; background: #c8b89a; top: 10%; left: 10%; border-radius: 0; }
-  .vis-2 .vs-b { width: 120px; height: 120px; background: #a09070; bottom: 20%; right: 15%; }
-  /* Vis 3 */
-  .vis-3 .vs-a { width: 160px; height: 480px; background: #2a2a2a; top: 0; right: 30%; border-radius: 0; }
-  .vis-3 .vs-b { width: 60px; height: 60px; background: #666; bottom: 30%; left: 20%; }
-  /* Vis 4 */
-  .vis-4 .vs-a { width: 160px; height: 160px; background: #c0b090; top: 15%; left: 20%; border-radius: 50% 0 50% 0; }
-  .vis-4 .vs-b { width: 80px; height: 80px; background: #907855; bottom: 25%; right: 20%; }
-  /* Vis 5 */
-  .vis-5 .vs-a { width: 200px; height: 200px; background: #222; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(45deg); border-radius: 0; }
-  .vis-5 .vs-b { width: 100px; height: 100px; background: #444; top: 20%; right: 20%; }
-  /* Vis 6 */
-  .vis-6 .vs-a { width: 180px; height: 90px; background: #c8b08a; bottom: 25%; left: 15%; border-radius: 0; }
-  .vis-6 .vs-b { width: 70px; height: 140px; background: #a08060; top: 15%; right: 25%; border-radius: 0; }
 
   .project-label {
     position: absolute;
@@ -473,35 +461,14 @@
     aspect-ratio: 3/4;
     background: var(--grey-2);
     overflow: hidden;
-    border-radius: 12px;
+    border-radius: 24px;
     position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
   }
-  .portrait-placeholder {
+  .portrait-frame img {
     width: 100%;
     height: 100%;
-    background: #1a1a1a;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-  }
-  .portrait-fig {
-    position: absolute;
-    bottom: 0;
-    width: 70%;
-    height: 90%;
-    background: linear-gradient(to top, #2a2a2a, #444);
-    border-radius: 100px 100px 0 0;
-  }
-  .portrait-fig::before {
-    content: '';
-    position: absolute;
-    top: -40px; left: 50%;
-    transform: translateX(-50%);
-    width: 80px; height: 80px;
-    background: #555;
-    border-radius: 50%;
+    object-fit: cover;
   }
   .portrait-accent {
     position: absolute;
@@ -510,7 +477,9 @@
     border: 1px solid var(--grey-2);
     pointer-events: none;
   }
-  .about-content { padding-top: 20px; }
+  .about-content {
+    padding-top: 20px;
+  }
   .about-intro {
     font-family: var(--font-display);
     font-size: clamp(28px, 3.5vw, 44px);
@@ -561,59 +530,6 @@
     flex-shrink: 0;
   }
 
-  /* ─── PROCESS ─── */
-  #process { display: none; padding: 120px 60px; }
-  .process-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-  }
-  .process-card {
-    padding: 48px 36px;
-    background: var(--grey-1);
-    border-radius: 12px;
-    position: relative;
-  }
-  .process-num {
-    font-family: var(--font-display);
-    font-size: 80px;
-    font-weight: 300;
-    color: var(--grey-2);
-    line-height: 1;
-    margin-bottom: 32px;
-    display: block;
-  }
-  .process-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--black);
-    margin-bottom: 16px;
-    letter-spacing: -0.01em;
-  }
-  .process-desc {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--grey-4);
-    line-height: 1.75;
-  }
-
-  /* ─── CV BUTTON ─── */
-  .cv-btn {
-    display: inline-block;
-    font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--white);
-    background: var(--black);
-    text-decoration: none;
-    padding: 14px 32px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-  }
-  .cv-btn:hover { background: var(--grey-4); }
-
   /* ─── CONTACT ─── */
   #contact { padding: 80px 60px 60px; background: var(--white); }
   .contact-inner { max-width: 900px; }
@@ -657,8 +573,10 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     border-radius: 8px;
-    cursor: none;
+    cursor: pointer;
+    pointer-events: auto;
     transition: all 0.3s ease;
+    border: none;
   }
   .contact-btn:hover { 
     background: var(--grey-4);
@@ -713,55 +631,6 @@
     font-size: 12px;
     color: rgba(255,255,255,0.5);
   }
-
-  /* Lightbox overlay */
-  .lightbox-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.92);
-    z-index: 250;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-    backdrop-filter: blur(12px);
-  }
-  .lightbox-overlay.open { opacity: 1; pointer-events: all; }
-  .lightbox-content {
-    position: relative;
-    max-width: 85vw;
-    max-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .lightbox-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    animation: zoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  @keyframes zoomIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  .lightbox-close {
-    position: absolute;
-    top: 24px; right: 24px;
-    width: 44px; height: 44px;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 8px;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(12px);
-    cursor: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    transition: all 0.2s;
-  }
-  .lightbox-close:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
-  .lightbox-close svg { width: 20px; height: 20px; stroke: rgba(255,255,255,0.8); fill: none; transition: stroke 0.2s; }
-  .lightbox-close:hover svg { stroke: rgba(255,255,255,1); }
 
   /* Modal overlay */
   .modal-overlay {
@@ -908,6 +777,7 @@
     .project-card[data-type="motion"] { grid-column: span 6; }
     .project-card[data-type="illustration"] { grid-column: span 3; }
     .project-card[data-type="video"] { grid-column: span 3; }
+    .project-card[data-type="ai"] { grid-column: span 3; }
     
     .project-card[data-type="illustration"] .project-inner,
     .project-card[data-type="video"] .project-inner { min-height: 280px; }
@@ -940,7 +810,8 @@
     .project-card[data-type="branding"],
     .project-card[data-type="motion"] { grid-column: span 2; }
     .project-card[data-type="illustration"],
-    .project-card[data-type="video"] { grid-column: span 1; }
+    .project-card[data-type="video"],
+    .project-card[data-type="ai"] { grid-column: span 1; }
     
     .project-card .project-inner { min-height: 220px; }
     
@@ -974,8 +845,6 @@
     .contact-buttons { gap: 12px; margin-bottom: 16px; }
     .contact-btn { padding: 16px 24px; font-size: 12px; }
     .contact-socials { gap: 16px; }
-    .social-icon { width: 40px; height: 40px; }
-    .social-icon svg { width: 20px; height: 20px; }
     
     footer { padding: 12px 16px; }
     footer p { font-size: 10px; }
@@ -985,8 +854,6 @@
     .modal-title { font-size: clamp(24px, 5vw, 40px); margin-bottom: 16px; }
     .modal-desc { font-size: 13px; }
     .modal-meta { flex-direction: column; gap: 20px; }
-    
-    .lightbox-close { width: 40px; height: 40px; top: 16px; right: 16px; }
   }
 </style>
 </head>
@@ -1017,201 +884,467 @@
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-content">
-  </div>
+  <div class="hero-content"></div>
   <div class="hero-scroll-hint">
     <div class="scroll-line"></div>
     <span>Scroll</span>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-strip">
-  <div class="marquee-inner" id="marqueeInner">
-    <span>Creative Design</span><span class="dot">·</span>
-    <span>Illustration</span><span class="dot">·</span>
-    <span>Video Editing</span><span class="dot">·</span>
-    <span>Motion Graphics</span><span class="dot">·</span>
-    <span>Branding</span><span class="dot">·</span>
-    <span>Visual Storytelling</span><span class="dot">·</span>
-    <span>Art Direction</span><span class="dot">·</span>
-    <span>Content Creation</span><span class="dot">·</span>
-    <span>Creative Design</span><span class="dot">·</span>
-    <span>Illustration</span><span class="dot">·</span>
-    <span>Video Editing</span><span class="dot">·</span>
-    <span>Motion Graphics</span><span class="dot">·</span>
-    <span>Branding</span><span class="dot">·</span>
-    <span>Visual Storytelling</span><span class="dot">·</span>
-    <span>Art Direction</span><span class="dot">·</span>
-    <span>Content Creation</span><span class="dot">·</span>
-  </div>
-</div>
+
 
 <!-- WORKS -->
 <section id="works">
   <div class="section-header reveal">
-    <div>
-      <h2 class="section-title">Projects</h2>
-    </div>
-
+    <div><h2 class="section-title">Projects</h2></div>
   </div>
 
   <div class="works-filter reveal reveal-delay-1">
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="ai">AI Video</button>
-    <button class="filter-btn" data-filter="branding">Branding</button>
     <button class="filter-btn" data-filter="illustration">Illustration</button>
     <button class="filter-btn" data-filter="video">Video Editing</button>
   </div>
 
   <div class="works-grid" id="worksGrid">
 
-    <div class="project-card reveal" data-cat="Creative Design" data-title="Noir Editorial Series" data-desc="A dark editorial design campaign exploring contrast, negative space, and typographic tension. Designed for a contemporary fashion house seeking a refined digital presence." data-tools="Photoshop · Illustrator · After Effects" data-year="2025" data-type="design" onclick="openModal(this)">
-      <div class="project-inner">
-        <div class="project-visual vis-1">
-          <div class="vis-shape vs-a"></div>
-          <div class="vis-shape vs-b"></div>
-          <div class="vis-shape vs-c"></div>
-          <div class="vis-1-text">I</div>
-        </div>
-        <div class="project-label">
-          <div class="project-cat">Creative Design</div>
-          <div class="project-title">Noir Editorial Series</div>
-        </div>
-        <div class="project-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </div>
-    </div>
+<!-- AI VIDEO (6) -->
+<div class="project-card reveal hidden reveal-delay-2" data-type="ai" data-cat="AI Video" data-title="AI Video 1" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285719/0602_1_logpqa4.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285719/0602_1_logpqa4.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 1</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
 
-    <div class="project-card reveal reveal-delay-1" data-cat="Illustration" data-title="Botanical Studies" data-desc="A series of delicate botanical illustrations combining classical draftsmanship with contemporary digital technique. Published as a limited print series." data-tools="Illustrator · Procreate · Photoshop" data-year="2025" data-type="illustration" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285806/Image_20231029235252_iatv4v.jpg')">
-      <div class="project-inner">
-        <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285806/Image_20231029235252_iatv4v.jpg" alt="Botanical Studies">
-        <div class="project-label">
-          <div class="project-cat">Illustration</div>
-          <div class="project-title">Botanical Studies</div>
-        </div>
-        <div class="project-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </div>
-    </div>
+<div class="project-card reveal hidden reveal-delay-1" data-type="ai" data-cat="AI Video" data-title="AI Video 2" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285714/done_sele_1_zmao0y.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285714/done_sele_1_zmao0y.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 2</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
 
-    <div class="project-card reveal reveal-delay-2" data-cat="Video Editing" data-title="Cinematic Reel 2025" data-desc="A showcase of cinematic video editing work spanning luxury brand commercials, documentary sequences, and short film projects. Precision colour grading and sound design throughout." data-tools="Premiere Pro · After Effects · DaVinci Resolve" data-year="2025" data-type="video" onclick="openModal(this)">
-      <div class="project-inner">
-        <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285714/daniel_video_3_n5joh6.jpg">
-          <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285714/daniel_video_3_n5joh6.mp4" type="video/mp4">
-        </video>
-        <div class="project-label">
-          <div class="project-cat">Video Editing</div>
-          <div class="project-title">Cinematic Reel 2025</div>
-        </div>
-        <div class="project-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </div>
-    </div>
+<div class="project-card reveal hidden reveal-delay-2" data-type="ai" data-cat="AI Video" data-title="AI Video 3" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285710/0512_2_h23tfk.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285710/0512_2_h23tfk.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 3</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
 
-    <div class="project-card reveal reveal-delay-1" data-cat="Video Editing" data-title="Internship Work 2025" data-desc="A collection of video editing work produced during a 2025 internship. Covers short-form content, brand videos, and social media reels — crafted with precision pacing and visual storytelling." data-tools="CapCut · Premiere Pro · Canva" data-year="2025" data-type="video" onclick="openModal(this)">
-      <div class="project-inner">
-        <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285710/daniel_video_2_new_l2mapt.jpg">
-          <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285710/daniel_video_2_new_l2mapt.mp4" type="video/mp4">
-        </video>
-        <div class="project-label">
-          <div class="project-cat">Video Editing</div>
-          <div class="project-title">Internship Work 2025</div>
-        </div>
-        <div class="project-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </div>
-    </div>
+<div class="project-card reveal hidden reveal-delay-1" data-type="ai" data-cat="AI Video" data-title="AI Video 4" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285705/0509_5_ui60uq.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285705/0509_5_ui60uq.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 4</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
 
-    <div class="project-card reveal reveal-delay-2" data-cat="AI Video" data-title="AI Video" data-desc="A curated series of AI-generated video work exploring cinematic storytelling through generative tools. Blending prompt engineering with post-production craft to create visually compelling brand content." data-tools="Runway · Kling AI · CapCut" data-year="2025" data-type="ai" onclick="openModal(this)">
-      <div class="project-inner">
-        <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285031/Untitled_design_st5tht.jpg">
-          <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285031/Untitled_design_st5tht.mp4" type="video/mp4">
-        </video>
-        <div class="project-label">
-          <div class="project-cat">AI Video</div>
-          <div class="project-title">AI Video</div>
-        </div>
-        <div class="project-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </div>
-    </div>
+<div class="project-card reveal hidden reveal-delay-2" data-type="ai" data-cat="AI Video" data-title="AI Video 5" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285690/Untitled_design_st5tht.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285690/Untitled_design_st5tht.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 5</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
 
-    <div class="project-card reveal reveal-delay-2" data-cat="Branding" data-title="Aether Studio Identity" data-desc="Full brand identity for a minimalist architecture studio. Mark, typeface selection, colour system, stationery, and environmental applications." data-tools="Illustrator · Photoshop · Canva" data-year="2024" data-type="branding" onclick="openModal(this)">
-      <div class="project-inner">
-        <div class="project-visual vis-4">
-          <div class="vis-shape vs-a"></div>
-          <div class="vis-shape vs-b"></div>
-        </div>
-        <div class="project-label">
-          <div class="project-cat">Branding</div>
-          <div class="project-title">Aether Studio Identity</div>
-        </div>
-        <div class="project-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </div>
-    </div>
+<div class="project-card reveal hidden reveal-delay-1" data-type="ai" data-cat="AI Video" data-title="AI Video 6" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285667/0604_1_uh2ts7.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285667/0604_1_uh2ts7.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 6</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
 
-    <div class="project-card reveal reveal-delay-1" data-cat="Motion Graphics" data-title="Kinetic Type Sequence" data-desc="A typographic motion piece created for a digital art festival. Explores the rhythm and tension between letterforms in motion using custom-built kinetic systems." data-tools="After Effects · Illustrator" data-year="2024" data-type="motion" onclick="openModal(this)">
-      <div class="project-inner">
-        <div class="project-visual vis-5">
-          <div class="vis-shape vs-a"></div>
-          <div class="vis-shape vs-b"></div>
-        </div>
-        <div class="project-label">
-          <div class="project-cat">Motion Graphics</div>
-          <div class="project-title">Kinetic Type Sequence</div>
-        </div>
-        <div class="project-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </div>
-    </div>
+<!-- ILLUSTRATIONS (12) -->
+<div class="project-card reveal hidden" data-type="illustration" data-cat="Illustration" data-title="Illustration 1" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/1')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/1" alt="Illustration 1">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 1</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
 
-    <div class="project-card reveal reveal-delay-2" data-cat="Illustration" data-title="Objects of Desire" data-desc="A luxury still-life illustration series for an editorial magazine feature. Each piece studies form, light, and material through a painterly digital process." data-tools="Procreate · Photoshop · Illustrator" data-year="2024" data-type="illustration" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285803/Image_20231118175802_irdw9b.jpg')">
-      <div class="project-inner">
-        <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285803/Image_20231118175802_irdw9b.jpg" alt="Objects of Desire">
-        <div class="project-label">
-          <div class="project-cat">Illustration</div>
-          <div class="project-title">Objects of Desire</div>
-        </div>
-        <div class="project-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </div>
-    </div>
+<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 2" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/2')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/2" alt="Illustration 2">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 2</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
 
-    <div class="project-card reveal" data-cat="Illustration" data-title="Ethereal Portraits" data-desc="A collection of contemporary portrait illustrations exploring the human form through abstract, minimalist layers. Digital painting with mixed media integration." data-tools="Procreate · Photoshop" data-year="2024" data-type="illustration" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285801/Image_20231111183154_ssnrs9.jpg')">
-      <div class="project-inner">
-        <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285801/Image_20231111183154_ssnrs9.jpg" alt="Ethereal Portraits">
-        <div class="project-label">
-          <div class="project-cat">Illustration</div>
-          <div class="project-title">Ethereal Portraits</div>
-        </div>
-        <div class="project-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </div>
-    </div>
+<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 3" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/3')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/3" alt="Illustration 3">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 3</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
 
-    <div class="project-card reveal reveal-delay-1" data-cat="Illustration" data-title="Abstract Geometry" data-desc="Exploring the intersection of mathematics and art through generative digital illustration. A study in color theory and spatial composition." data-tools="Procreate · Illustrator" data-year="2024" data-type="illustration" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285799/Image_20231111183121_auphjy.jpg')">
-      <div class="project-inner">
-        <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285799/Image_20231111183121_auphjy.jpg" alt="Abstract Geometry">
-        <div class="project-label">
-          <div class="project-cat">Illustration</div>
-          <div class="project-title">Abstract Geometry</div>
-        </div>
-        <div class="project-arrow">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </div>
-    </div>
+<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 4" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/4')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/4" alt="Illustration 4">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 4</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 5" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/5')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/5" alt="Illustration 5">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 5</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 6" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/6')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/6" alt="Illustration 6">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 6</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 7" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/7')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/7" alt="Illustration 7">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 7</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 8" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/8')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/8" alt="Illustration 8">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 8</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 9" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/9')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/9" alt="Illustration 9">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 9</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 10" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/10')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/10" alt="Illustration 10">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 10</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 11" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/11')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/11" alt="Illustration 11">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 11</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 12" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/12')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/12" alt="Illustration 12">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 12</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<!-- VIDEO EDITING (6) -->
+<div class="project-card reveal hidden reveal-delay-2" data-type="video" data-cat="Video Editing" data-title="Video Editing 1" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285719/6%E6%9C%8825%E6%97%A5danielvideo_yevxeg.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285719/6%E6%9C%8825%E6%97%A5danielvideo_yevxeg.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 1</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="video" data-cat="Video Editing" data-title="Video Editing 2" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285714/daniel_video_3_n5joh6.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285714/daniel_video_3_n5joh6.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 2</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="video" data-cat="Video Editing" data-title="Video Editing 3" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285710/daniel_video_2_new_l2mapt.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285710/daniel_video_2_new_l2mapt.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 3</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="video" data-cat="Video Editing" data-title="Video Editing 4" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285705/danielvideo_5_evqb5s.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285705/danielvideo_5_evqb5s.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 4</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="video" data-cat="Video Editing" data-title="Video Editing 5" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285690/danielvideeo4_xuomp9.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285690/danielvideeo4_xuomp9.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 5</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="video" data-cat="Video Editing" data-title="Video Editing 6" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285667/daniel_video_1_%E8%91%AB%E8%8A%A6%E9%B1%BC%E8%B7%83_1_nr1afk.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285667/daniel_video_1_%E8%91%AB%E8%8A%A6%E9%B1%BC%E8%B7%83_1_nr1afk.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 6</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+  </div>
+<div class="project-card reveal hidden" data-type="illustration" data-cat="Illustration" data-title="Illustration 1" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/1')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/1" alt="Illustration 1">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 1</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 2" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/2')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/2" alt="Illustration 2">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 2</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 3" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/3')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/3" alt="Illustration 3">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 3</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 4" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/4')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/4" alt="Illustration 4">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 4</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 5" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/5')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/5" alt="Illustration 5">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 5</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 6" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/6')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/6" alt="Illustration 6">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 6</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 7" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/7')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/7" alt="Illustration 7">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 7</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 8" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/8')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/8" alt="Illustration 8">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 8</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 9" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/9')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/9" alt="Illustration 9">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 9</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 10" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/10')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/10" alt="Illustration 10">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 10</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 11" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/11')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/11" alt="Illustration 11">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 11</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 12" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/12')">
+  <div class="project-inner">
+    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/12" alt="Illustration 12">
+    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 12</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<!-- VIDEO EDITING (6) -->
+<div class="project-card reveal hidden reveal-delay-2" data-type="video" data-cat="Video Editing" data-title="Video Editing 1" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285719/6%E6%9C%8825%E6%97%A5danielvideo_yevxeg.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285719/6%E6%9C%8825%E6%97%A5danielvideo_yevxeg.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 1</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="video" data-cat="Video Editing" data-title="Video Editing 2" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285714/daniel_video_3_n5joh6.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285714/daniel_video_3_n5joh6.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 2</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="video" data-cat="Video Editing" data-title="Video Editing 3" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285710/daniel_video_2_new_l2mapt.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285710/daniel_video_2_new_l2mapt.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 3</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="video" data-cat="Video Editing" data-title="Video Editing 4" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285705/danielvideo_5_evqb5s.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285705/danielvideo_5_evqb5s.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 4</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="video" data-cat="Video Editing" data-title="Video Editing 5" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285690/danielvideeo4_xuomp9.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285690/danielvideeo4_xuomp9.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 5</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="video" data-cat="Video Editing" data-title="Video Editing 6" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285667/daniel_video_1_%E8%91%AB%E8%8A%A6%E9%B1%BC%E8%B7%83_1_nr1afk.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285667/daniel_video_1_%E8%91%AB%E8%8A%A6%E9%B1%BC%E8%B7%83_1_nr1afk.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 6</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<!-- AI VIDEO (6) -->
+<div class="project-card reveal hidden reveal-delay-2" data-type="ai" data-cat="AI Video" data-title="AI Video 1" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285719/0602_1_logpqa4.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285719/0602_1_logpqa4.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 1</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="ai" data-cat="AI Video" data-title="AI Video 2" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285714/done_sele_1_zmao0y.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285714/done_sele_1_zmao0y.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 2</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="ai" data-cat="AI Video" data-title="AI Video 3" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285710/0512_2_h23tfk.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285710/0512_2_h23tfk.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 3</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="ai" data-cat="AI Video" data-title="AI Video 4" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285705/0509_5_ui60uq.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285705/0509_5_ui60uq.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 4</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-2" data-type="ai" data-cat="AI Video" data-title="AI Video 5" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285690/Untitled_design_st5tht.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285690/Untitled_design_st5tht.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 5</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
+
+<div class="project-card reveal hidden reveal-delay-1" data-type="ai" data-cat="AI Video" data-title="AI Video 6" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
+  <div class="project-inner">
+    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285667/0604_1_uh2ts7.jpg" autoplay muted playsinline loop>
+      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285667/0604_1_uh2ts7.mp4" type="video/mp4">
+    </video>
+    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 6</div></div>
+    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </div>
+</div>
 
   </div>
 </section>
@@ -1219,56 +1352,47 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="section-header reveal">
-    <div>
-      <div class="section-label">About</div>
-      <h2 class="section-title">The Designer</h2>
-    </div>
+    <div><div class="section-label">About</div><h2 class="section-title">The Designer</h2></div>
   </div>
   <div class="about-grid">
     <div class="about-portrait-wrap reveal">
       <div class="portrait-frame">
-        <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/daniel_1_1_jwcmx5.jpg" alt="Daniel Yong Portrait" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;">
+        <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/daniel_1_1_jwcmx5.jpg" alt="Daniel Yong Portrait">
       </div>
       <div class="portrait-accent"></div>
     </div>
     <div class="about-content">
-      <p class="about-intro reveal">I craft <em>visual stories</em> that live at the intersection of design, illustration, and motion.</p>
-      <p class="about-body reveal reveal-delay-1">I am a multi-disciplinary creative with a deep conviction that great design is never seen — it's felt. With a background spanning luxury brand campaigns, editorial illustration, and cinematic video production, my work balances precision with warmth, concept with craft.<br><br>I approach every project as an opportunity to tell a story that matters, using visual language to connect brands with the people they serve.</p>
+      <p class="about-intro reveal">I craft <em>visual stories</em> that bring ideas to life through design, illustration, and video.</p>
+      <p class="about-body reveal reveal-delay-1">With expertise across digital art, motion design, and video production, I create compelling visuals that connect brands with audiences. My work blends technical precision with creative storytelling.</p>
       <div class="skills-section reveal reveal-delay-2">
         <div class="skills-label">Tools & Disciplines</div>
         <div class="skills-grid">
           <div class="skill-item">Adobe Photoshop</div>
           <div class="skill-item">Adobe Illustrator</div>
+          <div class="skill-item">Procreate</div>
           <div class="skill-item">Canva</div>
           <div class="skill-item">CapCut</div>
-          <div class="skill-item">Procreate</div>
+          <div class="skill-item">AI Creative Tool</div>
         </div>
-      </div>
-      <div class="reveal reveal-delay-3" style="margin-top: 32px;">
-        <a href="#" class="cv-btn" download>Download CV</a>
       </div>
     </div>
   </div>
 </section>
+
+<!-- CONTACT -->
 <section id="contact">
   <div class="contact-inner">
     <div class="contact-label reveal">Contact</div>
-    <h2 class="contact-headline reveal reveal-delay-1">Let's make<br>something <em>remarkable.</em></h2>
+    <h2 class="contact-headline reveal reveal-delay-1">Let's create <br>something <em>remarkable.</em></h2>
     <div class="contact-buttons reveal reveal-delay-2">
-      <a href="https://wa.me/6581234567" class="contact-btn" target="_blank" rel="noopener">
-        <img src="data:image/png;base64,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" style="width:22px;height:22px;filter:invert(1);object-fit:contain;vertical-align:middle;" alt="WhatsApp">
-        WhatsApp Me
-      </a>
-      <a href="mailto:daniel@danielyong.com" class="contact-btn">
-        <img src="data:image/png;base64,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" style="width:22px;height:22px;filter:invert(1);object-fit:contain;vertical-align:middle;" alt="Email">
-        Email Me
-      </a>
+      <a href="https://wa.me/601157898786" class="contact-btn" target="_blank" rel="noopener noreferrer">WhatsApp Me</a>
+      <a href="https://mail.google.com/mail/?view=cm&to=danielych999@gmail.com" class="contact-btn" target="_blank" rel="noopener noreferrer">Email Me</a>
     </div>
-  </div>
-  <div class="contact-socials reveal reveal-delay-3">
-    <a href="https://behance.net/danielyong" class="social-text-link" target="_blank" rel="noopener">Behance</a>
-    <a href="https://linktree.com/danielyong" class="social-text-link" target="_blank" rel="noopener">Linktree</a>
-    <a href="https://instagram.com/danielyong" class="social-text-link" target="_blank" rel="noopener">Instagram</a>
+    <div class="contact-socials reveal reveal-delay-3">
+      <a href="https://behance.net/danielyong" class="social-text-link" target="_blank" rel="noopener">Behance</a>
+      <a href="https://linktree.com/danielyong" class="social-text-link" target="_blank" rel="noopener">Linktree</a>
+      <a href="https://instagram.com/danielyong" class="social-text-link" target="_blank" rel="noopener">Instagram</a>
+    </div>
   </div>
 </section>
 
@@ -1280,10 +1404,9 @@
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
   <div class="modal-card" id="modalCard">
-    <button class="modal-close" onclick="closeModal()">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+    <button class="modal-close" onclick="closeModal()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <div class="modal-visual" id="modalVisual"></div>
+    <video id="modalVideo" controls autoplay style="display: none; width: 100%; height: 100%; object-fit: cover;"><source id="modalVideoSource" src="" type="video/mp4"></video>
     <div class="modal-body">
       <div class="modal-cat" id="modalCat"></div>
       <div class="modal-title" id="modalTitle"></div>
@@ -1293,16 +1416,6 @@
         <div class="meta-item"><div class="meta-key">Year</div><div class="meta-val" id="modalYear"></div></div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- LIGHTBOX for illustrations -->
-<div class="lightbox-overlay" id="lightboxOverlay">
-  <div class="lightbox-content">
-    <button class="lightbox-close" onclick="closeLightbox()">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-    <img id="lightboxImage" src="" alt="Artwork preview" class="lightbox-image">
   </div>
 </div>
 
@@ -1332,11 +1445,59 @@ const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
 
 // ─── Scroll Reveal ───
-const reveals = document.querySelectorAll('.reveal');
+const reveals = document.querySelectorAll('.reveal:not(.project-card)');
+const cardReveals = document.querySelectorAll('.project-card');
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  entries.forEach(e => { 
+    if (e.isIntersecting) { 
+      e.target.classList.add('visible'); 
+      e.target.classList.remove('hidden');
+      observer.unobserve(e.target); 
+    } 
+  });
+}, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+
 reveals.forEach(r => observer.observe(r));
+cardReveals.forEach(r => {
+  r.classList.remove('hidden');
+  r.classList.add('visible');
+  observer.observe(r);
+});
+
+// ─── Filter ───
+const filterButtons = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+
+// First make all cards visible (remove hidden class interference)
+projectCards.forEach(card => {
+  card.classList.remove('hidden');
+  card.classList.add('visible');
+});
+
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Update active button
+    filterButtons.forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+
+    const filterValue = this.getAttribute('data-filter');
+
+    projectCards.forEach(card => {
+      const cardType = card.getAttribute('data-type');
+      if (filterValue === 'all' || cardType === filterValue) {
+        card.style.display = 'block';
+        card.style.opacity = '1';
+        card.style.transform = 'scale(1)';
+        card.style.pointerEvents = 'auto';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
 
 // ─── Project image scroll scale ───
 window.addEventListener('scroll', () => {
@@ -1348,47 +1509,7 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// ─── Filter ───
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const f = btn.dataset.filter;
-    document.querySelectorAll('.project-card').forEach(card => {
-      if (f === 'all' || card.dataset.type === f) {
-        card.style.opacity = '1'; card.style.transform = '';
-      } else {
-        card.style.opacity = '0.25'; card.style.transform = 'scale(0.98)';
-      }
-      card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-    });
-  });
-});
-
-// ─── Lightbox ───
-function openLightbox(e, imageSrc) {
-  e.stopPropagation();
-  const overlay = document.getElementById('lightboxOverlay');
-  document.getElementById('lightboxImage').src = imageSrc;
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
-  document.getElementById('lightboxOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.getElementById('lightboxOverlay').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('lightboxOverlay')) closeLightbox();
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
 // ─── Modal ───
-const bgClasses = ['vis-1','vis-2','vis-3','vis-4','vis-5','vis-6'];
-const bgMap = {
-  'Noir Editorial Series': 'vis-1', 'Botanical Studies': 'vis-2', 'Cinematic Reel 2025': 'vis-3',
-  'Aether Studio Identity': 'vis-4', 'Kinetic Type Sequence': 'vis-5', 'Objects of Desire': 'vis-6'
-};
-
 function openModal(card) {
   const overlay = document.getElementById('modalOverlay');
   document.getElementById('modalCat').textContent = card.dataset.cat;
@@ -1396,8 +1517,24 @@ function openModal(card) {
   document.getElementById('modalDesc').textContent = card.dataset.desc;
   document.getElementById('modalTools').textContent = card.dataset.tools;
   document.getElementById('modalYear').textContent = card.dataset.year;
+  
   const mv = document.getElementById('modalVisual');
-  mv.className = 'modal-visual ' + (bgMap[card.dataset.title] || 'vis-1');
+  const modalVideo = document.getElementById('modalVideo');
+  const videoSource = document.getElementById('modalVideoSource');
+  
+  const videoElement = card.querySelector('video');
+  if (videoElement && videoElement.querySelector('source')) {
+    mv.style.display = 'none';
+    modalVideo.style.display = 'block';
+    videoSource.src = videoElement.querySelector('source').src;
+    modalVideo.load();
+  } else {
+    mv.style.display = 'flex';
+    mv.className = 'modal-visual';
+    mv.style.background = '#f0f0f0';
+    modalVideo.style.display = 'none';
+  }
+  
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -1407,9 +1544,24 @@ function closeModal() {
 }
 function closeModalOnBg(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-// Prevent modal-card click from bubbling to overlay
 document.getElementById('modalCard').addEventListener('click', e => e.stopPropagation());
+
+// ─── Lightbox ───
+function openLightbox(e, imageSrc) {
+  e.stopPropagation();
+  // For now, just reuse modal
+  const overlay = document.getElementById('modalOverlay');
+  const modalBody = document.querySelector('.modal-body');
+  const mv = document.getElementById('modalVisual');
+  const modalVideo = document.getElementById('modalVideo');
+  
+  mv.innerHTML = `<img src="${imageSrc}" style="width: 100%; height: 100%; object-fit: contain;">`;
+  mv.style.display = 'flex';
+  modalVideo.style.display = 'none';
+  
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
 </script>
 </body>
 </html>
