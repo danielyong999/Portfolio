@@ -1,1567 +1,603 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daniel Yong — Creative Designer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio — Daniel Yong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        :root {
+            --black: #111111; --white: #ffffff;
+            --gray: #777777; --light-gray: #f5f5f5;
+        }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: var(--white); color: var(--black);
+            line-height: 1.6; overflow-x: hidden;
+        }
+        a { color: inherit; text-decoration: none; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 40px; }
 
-  :root {
-    --black: #111111;
-    --white: #FFFFFF;
-    --grey-1: #F5F5F5;
-    --grey-2: #E8E8E8;
-    --grey-3: #999999;
-    --grey-4: #555555;
-    --accent: #111111;
-    --font-display: 'Cormorant Garamond', serif;
-    --font-body: 'Manrope', sans-serif;
-  }
+        nav {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
+            z-index: 1000; border-bottom: 1px solid #eee;
+        }
+        nav .container {
+            display: flex; justify-content: space-between;
+            align-items: center; height: 70px;
+        }
+        .logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a {
+            font-size: 0.9rem; letter-spacing: 1px;
+            position: relative; transition: opacity 0.3s;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1px; background: var(--black); transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-toggle span { width: 25px; height: 2px; background: var(--black); }
 
-  html { scroll-behavior: smooth; font-size: 16px; }
+        .hero {
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: stretch;
+            padding-top: 90px; padding-bottom: 0px; width: 100%;
+        }
+        .hero > .container { width: 100%; margin-left: auto; margin-right: auto; }
+        .hero-meta {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            flex-wrap: wrap; gap: 15px; margin-bottom: 40px; margin-left: 0; padding-left: 0;
+            font-size: 0.85rem; color: var(--gray); letter-spacing: 0.5px;
+        }
+        .hero-meta .roles { margin: 0; padding: 0; }
+        .hero-meta .roles span { margin-right: 8px; }
+        .hero-meta .roles span:not(:last-child)::after { content: '/'; margin-left: 8px; color: #ccc; }
+        .hero-meta .info { text-align: right; display: flex; gap: 20px; flex-wrap: wrap; }
+        .hero-title {
+            font-family: 'Inter', sans-serif; font-weight: 900;
+            font-size: clamp(3.5rem, 14vw, 9rem); line-height: 0.95;
+            letter-spacing: -3px; margin: 0; word-break: break-word;
+        }
+        .hero-title-img {
+            display: block; width: 100%; max-width: 1300px; height: auto;
+            margin-bottom: 60px;
+        }
+        .hero p {
+            font-size: 1.1rem; color: var(--gray);
+            margin-top: 30px; max-width: 500px;
+        }
+        .hero .cta {
+            display: inline-block; margin-top: 30px; padding: 15px 40px;
+            border: 1px solid var(--black); font-size: 0.9rem;
+            letter-spacing: 1px; transition: all 0.3s;
+        }
+        .hero .cta:hover { background: var(--black); color: var(--white); }
 
-  body {
-    font-family: var(--font-body);
-    background: var(--white);
-    color: var(--black);
-    overflow-x: hidden;
-    cursor: auto;
-  }
+        section { padding: 120px 0; }
+        .section-title {
+            font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--gray); margin-bottom: 20px;
+        }
 
-  /* ─── Mobile Click Fix ─── */
-  .cursor {
-    display: none;
-    position: fixed;
-    width: 8px; height: 8px;
-    background: var(--black);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
-  }
-  .cursor-follower {
-    display: none;
-    position: fixed;
-    width: 36px; height: 36px;
-    border: 1px solid var(--black);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: left 0.12s ease, top 0.12s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
-    opacity: 0.5;
-  }
-  body.cursor-hover .cursor { width: 12px; height: 12px; background: var(--black); }
-  body.cursor-hover .cursor-follower { width: 56px; height: 56px; opacity: 0.15; }
+        #about { background: var(--light-gray); }
+        .about-heading-label {
+            font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--gray); margin-bottom: 30px; padding-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+        }
+        .about-grid {
+            display: grid; grid-template-columns: 0.6fr 1.4fr;
+            gap: 50px; align-items: start;
+        }
+        .about-img {
+            aspect-ratio: 4/5; background: #e8e8e8; max-width: 280px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gray); font-size: 0.9rem; overflow: hidden; border-radius: 4px;
+        }
+        .about-img img { width: 100%; height: 100%; object-fit: cover; }
+        .about-text .lede {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 400;
+            line-height: 1.3; margin-bottom: 30px;
+        }
+        .about-text .lede em { font-style: italic; }
+        .about-text p { color: #555; margin-bottom: 20px; font-size: 0.98rem; }
+        .tools-label {
+            font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--gray); margin: 75px 0 40px;
+        }
+        .tools-wrapper {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 30px;
+            border-bottom: 1px solid #ddd; padding-bottom: 22px; margin-bottom: 30px;
+        }
+        .tools-group { margin-bottom: 0; }
+        .tools-group-title {
+            font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase;
+            color: var(--black); font-weight: 700; margin-bottom: 8px;
+            text-decoration: underline; text-underline-offset: 3px;
+        }
+        .tools-list {
+            display: flex; flex-direction: column; gap: 5px;
+            list-style: none;
+        }
+        .tools-list li {
+            font-size: 0.9rem; line-height: 1.3; position: relative; padding-left: 14px;
+        }
+        .tools-list li::before {
+            content: '•'; position: absolute; left: 0; color: var(--gray);
+        }
+        .download-cv,
+        .download-cv:link,
+        .download-cv:visited,
+        .download-cv:active {
+            display: inline-block; padding: 14px 32px; background: var(--black);
+            color: var(--white); font-size: 0.8rem; letter-spacing: 1.5px;
+            font-weight: 700; text-transform: uppercase; border-radius: 6px;
+            transition: opacity 0.3s; opacity: 1 !important;
+        }
+        .download-cv:hover { opacity: 0.8; }
+        @keyframes tapFade {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .download-cv.tap-fade { animation: tapFade 0.6s ease; }
+        .download-cv:focus { outline: none; }
 
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 28px 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    mix-blend-mode: normal;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.3s ease, padding 0.3s ease;
-  }
-  nav.scrolled { border-color: var(--grey-2); padding: 20px 60px; }
-  .nav-left { display: flex; align-items: center; }
-  .nav-right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
-  .nav-logo {
-    font-family: var(--font-body);
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--black);
-    text-decoration: none;
-  }
-  .nav-links { display: flex; gap: 40px; list-style: none; }
-  .nav-links a {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--grey-4);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-  .nav-links a:hover { color: var(--black); }
-  .nav-roles {
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--grey-3);
-    display: flex;
-    gap: 16px;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-  }
-  .nav-roles span { display: inline; }
+        .category-block { margin-bottom: 70px; }
+        .category-block.hidden { display: none; }
+        .category-heading {
+            font-size: 1.1rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; padding-bottom: 15px;
+            margin-bottom: 30px; border-bottom: 1px solid #e0e0e0;
+        }
+        .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .project.hidden { display: none; }
+        .project { cursor: pointer; display: block; position: relative; }
+        .project-img {
+            position: relative;
+            aspect-ratio: 9/16; background: var(--light-gray); overflow: hidden;
+            border-radius: 8px; display: flex; align-items: center;
+            justify-content: center; color: var(--gray); transition: transform 0.4s;
+        }
+        .project-img video, .project-img img {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            width: calc(100% + 6px);
+            height: calc(100% + 6px);
+            object-fit: cover;
+            display: block;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
 
-  /* Reveal Animations */
-  .reveal {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal.hidden { opacity: 0; transform: translateY(32px); }
-  .reveal.hidden.visible { opacity: 1; transform: translateY(0); }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-  .reveal-delay-4 { transition-delay: 0.4s; }
+        .project-img.loading { opacity: 0.5; }
+        .project:hover .project-img { transform: scale(1.03); }
+        .project-title {
+            font-size: 0.95rem; font-weight: 600; margin-top: 15px;
+            color: var(--black);
+        }
 
-  /* ─── HERO ─── */
-  #hero {
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-bg-text { display: none; }
-  .hero-content { position: relative; z-index: 2; }
-  .hero-eyebrow {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--grey-3);
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .hero-eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 32px;
-    height: 1px;
-    background: var(--grey-3);
-  }
-  .hero-name {
-    font-family: var(--font-display);
-    font-size: clamp(52px, 8vw, 120px);
-    font-weight: 300;
-    line-height: 0.92;
-    letter-spacing: -0.03em;
-    color: var(--black);
-    margin-bottom: 48px;
-  }
-  .hero-name em { font-style: italic; color: var(--grey-4); }
-  .hero-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-  .hero-tagline {
-    font-size: clamp(14px, 1.6vw, 18px);
-    font-weight: 300;
-    color: var(--grey-4);
-    max-width: 420px;
-    line-height: 1.7;
-  }
-  .hero-roles {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--grey-3);
-    text-align: right;
-    display: flex;
-    gap: 28px;
-    align-items: center;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-  }
-  .hero-roles span { display: inline; margin-bottom: 0; }
-  .hero-scroll-hint {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    opacity: 0.4;
-    animation: scrollBounce 2s ease-in-out infinite;
-  }
-  .hero-scroll-hint span { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; }
-  .scroll-line {
-    width: 1px;
-    height: 48px;
-    background: linear-gradient(to bottom, var(--black), transparent);
-    transform-origin: top;
-    animation: scrollLine 2s ease-in-out infinite;
-  }
-  @keyframes scrollBounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
-  @keyframes scrollLine { 0%, 100% { scaleY: 1; opacity: 1; } 50% { scaleY: 0.6; opacity: 0.4; } }
+        .contact { background: var(--light-gray); text-align: center; }
+        .contact h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 400;
+            margin-bottom: 40px; letter-spacing: -1px;
+        }
+        .email {
+            display: block; font-size: 1.3rem; font-weight: 500;
+            margin-bottom: 20px; transition: opacity 0.3s;
+        }
+        .email:hover { opacity: 0.7; }
+        .phone {
+            display: block; font-size: 1.1rem; color: var(--gray);
+            margin-bottom: 30px;
+        }
+        .whatsapp-btn {
+            display: inline-block; margin-top: 20px; padding: 15px 40px;
+            border: 1px solid var(--black); font-size: 0.9rem;
+            letter-spacing: 1px; transition: all 0.3s;
+        }
+        .whatsapp-btn:hover { background: var(--black); color: var(--white); }
 
-  /* ─── MARQUEE ─── */
-  .marquee-strip {
-    border-top: 1px solid var(--grey-2);
-    border-bottom: 1px solid var(--grey-2);
-    padding: 18px 0;
-    overflow: hidden;
-    white-space: nowrap;
-    background: var(--white);
-  }
-  .marquee-inner {
-    display: inline-flex;
-    animation: marquee 24s linear infinite;
-  }
-  .marquee-inner span {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--grey-3);
-    padding: 0 40px;
-  }
-  .marquee-inner span.dot {
-    color: var(--grey-2);
-    padding: 0;
-    letter-spacing: 0;
-    font-size: 16px;
-    vertical-align: middle;
-  }
-  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        footer {
+            padding: 40px 0; background: var(--white); text-align: center;
+            font-size: 0.8rem; color: var(--gray); border-top: 1px solid #eee;
+        }
 
-  /* ─── SECTION HEADERS ─── */
-  .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 64px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--grey-2);
-  }
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--grey-3);
-  }
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(40px, 6vw, 80px);
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    line-height: 1;
-    color: var(--black);
-  }
-  .section-count {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--grey-3);
-    letter-spacing: 0.1em;
-  }
+        .lightbox {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            z-index: 2000; align-items: center; justify-content: center;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox-close {
+            position: absolute; top: 30px; right: 30px; font-size: 40px;
+            color: white; background: none; border: none; cursor: pointer;
+            padding: 0; width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .lightbox-close:hover { opacity: 0.7; }
+        .lightbox-content {
+            position: relative; max-width: 90%; max-height: 90%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .lightbox-content img, .lightbox-content video {
+            max-width: 100%; max-height: 100%;
+            border-radius: 8px;
+        }
 
-  /* ─── WORKS ─── */
-  #works { padding: 120px 60px; }
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex; gap: 15px; margin-bottom: 60px;
+            flex-wrap: wrap; align-items: center;
+        }
+        .filter-btn {
+            padding: 10px 20px; border: 1px solid #ddd;
+            background: transparent; font-size: 0.85rem;
+            letter-spacing: 1px; text-transform: uppercase;
+            cursor: pointer; transition: all 0.3s;
+            color: var(--black);
+        }
+        .filter-btn:hover { border-color: var(--black); }
+        .filter-btn.active {
+            background: var(--black); color: var(--white);
+            border-color: var(--black);
+        }
 
-  .works-filter {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 64px;
-  }
-  .filter-btn {
-    padding: 12px 24px;
-    border: 1.5px solid var(--grey-2);
-    border-radius: 12px;
-    background: var(--white);
-    font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--grey-3);
-    cursor: pointer;
-    pointer-events: auto;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .filter-btn:hover {
-    border-color: var(--black);
-    color: var(--black);
-  }
-  .filter-btn.active {
-    background: var(--black);
-    border-color: var(--black);
-    color: var(--white);
-  }
-
-  .works-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 16px;
-  }
-
-  .project-card {
-    position: relative;
-    overflow: hidden;
-    background: var(--grey-1);
-    cursor: none;
-    border-radius: 24px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-  }
-  .project-card:hover {
-    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-  }
-  
-  .project-card[data-type="design"] { grid-column: span 12; }
-  .project-card[data-type="branding"] { grid-column: span 12; }
-  .project-card[data-type="motion"] { grid-column: span 12; }
-  .project-card[data-type="illustration"] { grid-column: span 6; }
-  .project-card[data-type="video"] { grid-column: span 6; }
-  .project-card[data-type="ai"] { grid-column: span 6; }
-
-  .project-card:nth-child(1) .project-inner { min-height: 480px; height: 480px; }
-  .project-card:nth-child(2) .project-inner,
-  .project-card:nth-child(3) .project-inner { min-height: 380px; height: 380px; }
-  .project-card:nth-child(4) .project-inner { min-height: 380px; height: 380px; }
-  .project-card:nth-child(5) .project-inner { min-height: 380px; height: 380px; }
-  .project-card:nth-child(6) .project-inner { min-height: 380px; height: 380px; }
-  .project-inner { width: 100%; min-height: 320px; height: 320px; position: relative; overflow: hidden; display: block; }
-  .project-inner > img,
-  .project-inner > video {
-    width: 100%;
-    height: 100%;
-    min-height: 320px;
-    object-fit: cover;
-    display: block;
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
-  .project-visual {
-    width: 100%;
-    height: 100%;
-    min-height: inherit;
-    position: absolute;
-    inset: 0;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-  }
-  .project-inner > img ~ .project-visual,
-  .project-inner > video ~ .project-visual {
-    display: none;
-  }
-  .project-label { z-index: 5; }
-  .project-arrow { z-index: 5; }
-  .project-card:hover .project-visual { transform: scale(1.04); }
-
-  .vis-1 { background: #1a1a1a; }
-  .vis-2 { background: #f0ece4; }
-  .vis-3 { background: #0d0d0d; }
-  .vis-4 { background: #e8e4dc; }
-  .vis-5 { background: #151515; }
-  .vis-6 { background: #f5f0e8; }
-
-  .vis-shape {
-    position: absolute;
-    border-radius: 50%;
-    mix-blend-mode: overlay;
-    opacity: 0.6;
-  }
-
-  .vis-1 .vs-a { width: 300px; height: 300px; background: #333; top: 20%; left: 15%; }
-  .vis-1 .vs-b { width: 180px; height: 180px; background: #555; bottom: 25%; right: 20%; border-radius: 0; }
-  .vis-1 .vs-c { width: 80px; height: 80px; background: #888; top: 60%; left: 45%; }
-  .vis-1-text {
-    font-family: var(--font-display);
-    font-size: 80px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.08);
-    letter-spacing: -0.04em;
-    position: absolute;
-    bottom: 40px;
-    right: 40px;
-  }
-
-  .project-label {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 32px 28px 28px;
-    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
-    transform: translateY(20px);
-    opacity: 0;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 5;
-  }
-  .project-card:hover .project-label { transform: translateY(0); opacity: 1; }
-  .project-cat {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 6px;
-  }
-  .project-title {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 400;
-    color: #fff;
-    letter-spacing: -0.01em;
-  }
-  .project-arrow {
-    position: absolute;
-    top: 24px; right: 24px;
-    width: 36px; height: 36px;
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 0.3s ease;
-    z-index: 5;
-  }
-  .project-card:hover .project-arrow { opacity: 1; transform: scale(1); }
-  .project-arrow svg { width: 14px; height: 14px; stroke: #fff; fill: none; }
-
-  /* ─── ABOUT ─── */
-  #about { padding: 120px 60px; background: var(--grey-1); }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 100px;
-    align-items: start;
-  }
-  .about-portrait-wrap {
-    position: relative;
-  }
-  .portrait-frame {
-    width: 100%;
-    aspect-ratio: 3/4;
-    background: var(--grey-2);
-    overflow: hidden;
-    border-radius: 24px;
-    position: relative;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-  }
-  .portrait-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .portrait-accent {
-    position: absolute;
-    bottom: -20px; right: -20px;
-    width: 120px; height: 160px;
-    border: 1px solid var(--grey-2);
-    pointer-events: none;
-  }
-  .about-content {
-    padding-top: 20px;
-  }
-  .about-intro {
-    font-family: var(--font-display);
-    font-size: clamp(28px, 3.5vw, 44px);
-    font-weight: 300;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-    color: var(--black);
-    margin-bottom: 32px;
-  }
-  .about-intro em { font-style: italic; color: var(--grey-4); }
-  .about-body {
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 1.8;
-    color: var(--grey-4);
-    margin-bottom: 48px;
-  }
-  .skills-section { margin-top: 48px; }
-  .skills-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--grey-3);
-    margin-bottom: 20px;
-  }
-  .skills-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-  }
-  .skill-item {
-    padding: 14px 0;
-    border-bottom: 1px solid var(--grey-2);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--black);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    letter-spacing: 0.02em;
-  }
-  .skill-item::before {
-    content: '';
-    width: 4px; height: 4px;
-    background: var(--grey-3);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* ─── CONTACT ─── */
-  #contact { padding: 80px 60px 60px; background: var(--white); }
-  .contact-inner { max-width: 900px; }
-  .contact-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--grey-3);
-    margin-bottom: 20px;
-  }
-  .contact-headline {
-    font-family: var(--font-display);
-    font-size: clamp(44px, 7vw, 100px);
-    font-weight: 300;
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    color: var(--black);
-    margin-bottom: 40px;
-  }
-  .contact-headline em { font-style: italic; color: var(--grey-4); }
-  .contact-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 400px;
-    margin-bottom: 16px;
-  }
-  .contact-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 18px 32px;
-    background: var(--black);
-    color: var(--white);
-    text-decoration: none;
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    border-radius: 8px;
-    cursor: pointer;
-    pointer-events: auto;
-    transition: all 0.3s ease;
-    border: none;
-  }
-  .contact-btn:hover { 
-    background: var(--grey-4);
-    transform: translateY(-2px);
-  }
-  .contact-btn svg { width: 20px; height: 20px; }
-  .contact-socials {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex-wrap: nowrap;
-    padding: 8px 60px 48px 60px;
-    justify-content: center;
-    width: 100%;
-  }
-  .social-text-link {
-    font-family: var(--font-body);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--grey-3);
-    text-decoration: none;
-    padding: 8px 16px;
-    border: 1px solid var(--grey-2);
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-  }
-  .social-text-link:hover {
-    color: var(--black);
-    border-color: var(--black);
-    background: var(--grey-1);
-  }
-
-  /* Footer */
-  footer {
-    padding: 28px 60px;
-    background: var(--black);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  footer p {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: rgba(255,255,255,0.2);
-  }
-  footer p:first-child {
-    font-size: 12px;
-    color: rgba(255,255,255,0.5);
-  }
-
-  /* Modal overlay */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-    backdrop-filter: blur(8px);
-  }
-  .modal-overlay.open { opacity: 1; pointer-events: all; }
-  .modal-card {
-    background: var(--white);
-    width: 80vw;
-    max-width: 1000px;
-    max-height: 85vh;
-    overflow-y: auto;
-    position: relative;
-    border-radius: 16px;
-    transform: translateY(40px);
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .modal-overlay.open .modal-card { transform: translateY(0); }
-  .modal-close {
-    position: absolute;
-    top: 24px; right: 24px;
-    width: 40px; height: 40px;
-    border: 1px solid var(--grey-2);
-    border-radius: 8px;
-    background: var(--white);
-    cursor: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    transition: all 0.2s;
-  }
-  .modal-close:hover { background: var(--black); border-color: var(--black); }
-  .modal-close:hover svg { stroke: var(--white); }
-  .modal-close svg { width: 16px; height: 16px; stroke: var(--black); fill: none; transition: stroke 0.2s; }
-  .modal-visual {
-    width: 100%;
-    height: 420px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .modal-body { padding: 48px; }
-  .modal-cat {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--grey-3);
-    margin-bottom: 12px;
-  }
-  .modal-title {
-    font-family: var(--font-display);
-    font-size: clamp(32px, 4vw, 56px);
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    color: var(--black);
-    margin-bottom: 24px;
-  }
-  .modal-desc {
-    font-size: 15px;
-    line-height: 1.8;
-    color: var(--grey-4);
-    font-weight: 400;
-    max-width: 680px;
-  }
-  .modal-meta {
-    display: flex;
-    gap: 40px;
-    margin-top: 40px;
-    padding-top: 32px;
-    border-top: 1px solid var(--grey-2);
-  }
-  .meta-item { }
-  .meta-key {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--grey-3);
-    margin-bottom: 4px;
-  }
-  .meta-val {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--black);
-  }
-
-  /* Scroll progress */
-  .progress-bar {
-    position: fixed;
-    top: 0; left: 0;
-    height: 2px;
-    background: var(--black);
-    z-index: 999;
-    transform-origin: left;
-    transform: scaleX(0);
-    transition: transform 0.1s linear;
-  }
-
-  @media (max-width: 900px) {
-    nav { padding: 20px 24px; flex-direction: column; gap: 12px; align-items: flex-start; }
-    .nav-right { align-items: flex-start; }
-    .nav-links { display: none; }
-    .nav-roles { font-size: 9px; }
-    #hero { padding: 0 24px 64px; }
-    .hero-name { font-size: clamp(40px, 10vw, 80px); margin-bottom: 32px; }
-    .hero-bottom { flex-direction: column; align-items: flex-start; gap: 32px; }
-    .hero-tagline { max-width: 100%; font-size: 14px; }
-    .hero-roles { text-align: left; font-size: 10px; gap: 16px; }
-    #works { padding: 80px 24px; }
-    .works-filter { gap: 6px; }
-    .filter-btn { padding: 6px 14px; font-size: 10px; }
-    #about { padding: 80px 24px; }
-    #contact { padding: 80px 24px; }
-    footer { padding: 20px 24px; flex-direction: column; gap: 12px; text-align: center; }
-    .about-grid { grid-template-columns: 1fr; gap: 48px; }
-    .contact-links { flex-direction: column; align-items: flex-start; gap: 16px; }
-    .contact-headline { font-size: clamp(32px, 8vw, 56px); margin-bottom: 40px; }
-    .hero-scroll-hint { display: none; }
-    .section-header { margin-bottom: 40px; padding-bottom: 16px; }
-    .section-title { font-size: clamp(32px, 6vw, 48px); }
-  }
-
-  @media (max-width: 768px) {
-    .works-grid {
-      grid-template-columns: repeat(6, 1fr);
-      gap: 2px;
-    }
-    .project-card[data-type="design"] { grid-column: span 6; }
-    .project-card[data-type="branding"] { grid-column: span 6; }
-    .project-card[data-type="motion"] { grid-column: span 6; }
-    .project-card[data-type="illustration"] { grid-column: span 3; }
-    .project-card[data-type="video"] { grid-column: span 3; }
-    .project-card[data-type="ai"] { grid-column: span 3; }
-    
-    .project-card[data-type="illustration"] .project-inner,
-    .project-card[data-type="video"] .project-inner { min-height: 280px; }
-    .project-card[data-type="design"] .project-inner,
-    .project-card[data-type="branding"] .project-inner,
-    .project-card[data-type="motion"] .project-inner { min-height: 280px; }
-    
-    .project-label { padding: 20px 16px 16px; }
-    .project-title { font-size: 16px; }
-    .project-cat { font-size: 8px; }
-    
-    nav { padding: 16px 20px; }
-    #hero { padding: 0 20px 48px; }
-    #works { padding: 60px 20px; }
-    #about { padding: 60px 20px; }
-    #contact { padding: 60px 20px; }
-    footer { padding: 16px 20px; }
-    .contact-headline { font-size: clamp(28px, 7vw, 48px); }
-    .contact-links { flex-direction: column; align-items: flex-start; }
-    .contact-link { font-size: 11px; }
-    .contact-link.email { font-size: 16px; }
-  }
-
-  @media (max-width: 480px) {
-    .works-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
-    }
-    .project-card[data-type="design"],
-    .project-card[data-type="branding"],
-    .project-card[data-type="motion"] { grid-column: span 2; }
-    .project-card[data-type="illustration"],
-    .project-card[data-type="video"],
-    .project-card[data-type="ai"] { grid-column: span 1; }
-    
-    .project-card .project-inner { min-height: 220px; }
-    
-    nav { padding: 12px 16px; flex-direction: column; gap: 8px; align-items: flex-start; }
-    .nav-left { width: 100%; }
-    .nav-right { align-items: flex-start; }
-    .nav-logo { font-size: 12px; }
-    .nav-roles { font-size: 8px; gap: 12px; }
-    #hero { padding: 0 16px 40px; margin-top: 60px; }
-    .hero-name { font-size: clamp(32px, 8vw, 60px); margin-bottom: 24px; }
-    .hero-tagline { font-size: 13px; line-height: 1.6; }
-    .hero-roles { font-size: 9px; gap: 12px; margin-top: 24px; }
-    
-    #works { padding: 50px 16px; }
-    .section-header { margin-bottom: 32px; }
-    .section-title { font-size: clamp(28px, 6vw, 40px); }
-    .section-label { font-size: 10px; }
-    .works-filter { gap: 4px; }
-    .filter-btn { padding: 6px 12px; font-size: 9px; }
-    
-    #about { padding: 50px 16px; }
-    .about-content { padding-top: 0; }
-    .about-intro { font-size: clamp(20px, 5vw, 28px); margin-bottom: 20px; }
-    .about-body { font-size: 14px; margin-bottom: 32px; }
-    .skills-grid { grid-template-columns: 1fr; }
-    .skill-item { padding: 10px 0; font-size: 12px; }
-    
-    #contact { padding: 60px 16px 32px; }
-    .contact-label { font-size: 10px; margin-bottom: 20px; }
-    .contact-headline { font-size: clamp(24px, 6vw, 40px); margin-bottom: 32px; line-height: 1.1; }
-    .contact-buttons { gap: 12px; margin-bottom: 16px; }
-    .contact-btn { padding: 16px 24px; font-size: 12px; }
-    .contact-socials { gap: 16px; }
-    
-    footer { padding: 12px 16px; }
-    footer p { font-size: 10px; }
-    
-    .modal-visual { height: 300px; }
-    .modal-body { padding: 32px 20px; }
-    .modal-title { font-size: clamp(24px, 5vw, 40px); margin-bottom: 16px; }
-    .modal-desc { font-size: 13px; }
-    .modal-meta { flex-direction: column; gap: 20px; }
-  }
-</style>
+        /* Mobile responsiveness */
+        @media (max-width: 1024px) {
+            .container { padding: 0 30px; }
+            .work-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .tools-wrapper { grid-template-columns: 1fr 1fr; }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-img { max-width: 100%; }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            .nav-links { gap: 20px; font-size: 0.85rem; }
+            .hero-title { font-size: clamp(2.5rem, 10vw, 4rem); }
+            .hero-meta { flex-direction: column; text-align: left; }
+            .hero-meta .info { text-align: left; }
+            .menu-toggle { display: flex; }
+            .nav-links { position: absolute; top: 70px; left: 0; width: 100%;
+                background: white; flex-direction: column; gap: 0;
+                padding: 30px 40px; display: none;
+            }
+            .nav-links.active { display: flex; }
+            .work-grid { grid-template-columns: 1fr; }
+            .tools-wrapper { grid-template-columns: 1fr; }
+            section { padding: 80px 0; }
+            .contact h2 { font-size: 2rem; }
+            .filter-buttons { gap: 10px; }
+            .filter-btn { padding: 8px 16px; font-size: 0.75rem; }
+        }
+    </style>
 </head>
 <body>
-
-<div class="cursor" id="cursor"></div>
-<div class="cursor-follower" id="cursorFollower"></div>
-<div class="progress-bar" id="progressBar"></div>
-
-<!-- NAV -->
-<nav id="navbar">
-  <div class="nav-left">
-    <a href="#" class="nav-logo">Daniel Yong's Portfolio</a>
-  </div>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="#works">Works</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="nav-roles">
-      <span>Creative Designer</span>
-      <span>Illustrator</span>
-      <span>Video Editor</span>
-    </div>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-content"></div>
-  <div class="hero-scroll-hint">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
-  </div>
-</section>
-
-
-
-<!-- WORKS -->
-<section id="works">
-  <div class="section-header reveal">
-    <div><h2 class="section-title">Projects</h2></div>
-  </div>
-
-  <div class="works-filter reveal reveal-delay-1">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="ai">AI Video</button>
-    <button class="filter-btn" data-filter="illustration">Illustration</button>
-    <button class="filter-btn" data-filter="video">Video Editing</button>
-  </div>
-
-  <div class="works-grid" id="worksGrid">
-
-<!-- AI VIDEO (6) -->
-<div class="project-card reveal hidden reveal-delay-2" data-type="ai" data-cat="AI Video" data-title="AI Video 1" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285719/0602_1_logpqa4.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285719/0602_1_logpqa4.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 1</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="ai" data-cat="AI Video" data-title="AI Video 2" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285714/done_sele_1_zmao0y.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285714/done_sele_1_zmao0y.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 2</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="ai" data-cat="AI Video" data-title="AI Video 3" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285710/0512_2_h23tfk.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285710/0512_2_h23tfk.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 3</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="ai" data-cat="AI Video" data-title="AI Video 4" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285705/0509_5_ui60uq.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285705/0509_5_ui60uq.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 4</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="ai" data-cat="AI Video" data-title="AI Video 5" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285690/Untitled_design_st5tht.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285690/Untitled_design_st5tht.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 5</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="ai" data-cat="AI Video" data-title="AI Video 6" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285667/0604_1_uh2ts7.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285667/0604_1_uh2ts7.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 6</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<!-- ILLUSTRATIONS (12) -->
-<div class="project-card reveal hidden" data-type="illustration" data-cat="Illustration" data-title="Illustration 1" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/1')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/1" alt="Illustration 1">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 1</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 2" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/2')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/2" alt="Illustration 2">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 2</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 3" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/3')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/3" alt="Illustration 3">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 3</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 4" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/4')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/4" alt="Illustration 4">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 4</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 5" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/5')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/5" alt="Illustration 5">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 5</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 6" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/6')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/6" alt="Illustration 6">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 6</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 7" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/7')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/7" alt="Illustration 7">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 7</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 8" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/8')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/8" alt="Illustration 8">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 8</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 9" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/9')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/9" alt="Illustration 9">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 9</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 10" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/10')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/10" alt="Illustration 10">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 10</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 11" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/11')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/11" alt="Illustration 11">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 11</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 12" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/12')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/12" alt="Illustration 12">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 12</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<!-- VIDEO EDITING (6) -->
-<div class="project-card reveal hidden reveal-delay-2" data-type="video" data-cat="Video Editing" data-title="Video Editing 1" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285719/6%E6%9C%8825%E6%97%A5danielvideo_yevxeg.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285719/6%E6%9C%8825%E6%97%A5danielvideo_yevxeg.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 1</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="video" data-cat="Video Editing" data-title="Video Editing 2" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285714/daniel_video_3_n5joh6.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285714/daniel_video_3_n5joh6.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 2</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="video" data-cat="Video Editing" data-title="Video Editing 3" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285710/daniel_video_2_new_l2mapt.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285710/daniel_video_2_new_l2mapt.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 3</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="video" data-cat="Video Editing" data-title="Video Editing 4" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285705/danielvideo_5_evqb5s.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285705/danielvideo_5_evqb5s.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 4</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="video" data-cat="Video Editing" data-title="Video Editing 5" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285690/danielvideeo4_xuomp9.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285690/danielvideeo4_xuomp9.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 5</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="video" data-cat="Video Editing" data-title="Video Editing 6" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285667/daniel_video_1_%E8%91%AB%E8%8A%A6%E9%B1%BC%E8%B7%83_1_nr1afk.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285667/daniel_video_1_%E8%91%AB%E8%8A%A6%E9%B1%BC%E8%B7%83_1_nr1afk.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 6</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-  </div>
-<div class="project-card reveal hidden" data-type="illustration" data-cat="Illustration" data-title="Illustration 1" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/1')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/1" alt="Illustration 1">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 1</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 2" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/2')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/2" alt="Illustration 2">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 2</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 3" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/3')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/3" alt="Illustration 3">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 3</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 4" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/4')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/4" alt="Illustration 4">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 4</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 5" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/5')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/5" alt="Illustration 5">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 5</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 6" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/6')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/6" alt="Illustration 6">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 6</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 7" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/7')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/7" alt="Illustration 7">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 7</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 8" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/8')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/8" alt="Illustration 8">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 8</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 9" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/9')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/9" alt="Illustration 9">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 9</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 10" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/10')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/10" alt="Illustration 10">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 10</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="illustration" data-cat="Illustration" data-title="Illustration 11" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/11')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/11" alt="Illustration 11">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 11</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="illustration" data-cat="Illustration" data-title="Illustration 12" data-desc="Digital illustration exploring form and color." data-tools="Procreate · Photoshop" data-year="2025" onclick="openLightbox(event, 'https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/12')">
-  <div class="project-inner">
-    <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_800/v1781285228/12" alt="Illustration 12">
-    <div class="project-label"><div class="project-cat">Illustration</div><div class="project-title">Illustration 12</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<!-- VIDEO EDITING (6) -->
-<div class="project-card reveal hidden reveal-delay-2" data-type="video" data-cat="Video Editing" data-title="Video Editing 1" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285719/6%E6%9C%8825%E6%97%A5danielvideo_yevxeg.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285719/6%E6%9C%8825%E6%97%A5danielvideo_yevxeg.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 1</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="video" data-cat="Video Editing" data-title="Video Editing 2" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285714/daniel_video_3_n5joh6.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285714/daniel_video_3_n5joh6.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 2</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="video" data-cat="Video Editing" data-title="Video Editing 3" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285710/daniel_video_2_new_l2mapt.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285710/daniel_video_2_new_l2mapt.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 3</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="video" data-cat="Video Editing" data-title="Video Editing 4" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285705/danielvideo_5_evqb5s.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285705/danielvideo_5_evqb5s.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 4</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="video" data-cat="Video Editing" data-title="Video Editing 5" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285690/danielvideeo4_xuomp9.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285690/danielvideeo4_xuomp9.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 5</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="video" data-cat="Video Editing" data-title="Video Editing 6" data-desc="Professional video editing and color grading." data-tools="Premiere Pro · After Effects" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285667/daniel_video_1_%E8%91%AB%E8%8A%A6%E9%B1%BC%E8%B7%83_1_nr1afk.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285667/daniel_video_1_%E8%91%AB%E8%8A%A6%E9%B1%BC%E8%B7%83_1_nr1afk.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">Video Editing</div><div class="project-title">Video Editing 6</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<!-- AI VIDEO (6) -->
-<div class="project-card reveal hidden reveal-delay-2" data-type="ai" data-cat="AI Video" data-title="AI Video 1" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285719/0602_1_logpqa4.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285719/0602_1_logpqa4.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 1</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="ai" data-cat="AI Video" data-title="AI Video 2" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285714/done_sele_1_zmao0y.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285714/done_sele_1_zmao0y.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 2</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="ai" data-cat="AI Video" data-title="AI Video 3" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285710/0512_2_h23tfk.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285710/0512_2_h23tfk.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 3</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="ai" data-cat="AI Video" data-title="AI Video 4" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285705/0509_5_ui60uq.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285705/0509_5_ui60uq.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 4</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-2" data-type="ai" data-cat="AI Video" data-title="AI Video 5" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285690/Untitled_design_st5tht.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285690/Untitled_design_st5tht.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 5</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-<div class="project-card reveal hidden reveal-delay-1" data-type="ai" data-cat="AI Video" data-title="AI Video 6" data-desc="AI-generated cinematic video content." data-tools="Runway · Kling AI" data-year="2025" onclick="openModal(this)">
-  <div class="project-inner">
-    <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285667/0604_1_uh2ts7.jpg" autoplay muted playsinline loop>
-      <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285667/0604_1_uh2ts7.mp4" type="video/mp4">
-    </video>
-    <div class="project-label"><div class="project-cat">AI Video</div><div class="project-title">AI Video 6</div></div>
-    <div class="project-arrow"><svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-  </div>
-</div>
-
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-header reveal">
-    <div><div class="section-label">About</div><h2 class="section-title">The Designer</h2></div>
-  </div>
-  <div class="about-grid">
-    <div class="about-portrait-wrap reveal">
-      <div class="portrait-frame">
-        <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/daniel_1_1_jwcmx5.jpg" alt="Daniel Yong Portrait">
-      </div>
-      <div class="portrait-accent"></div>
-    </div>
-    <div class="about-content">
-      <p class="about-intro reveal">I craft <em>visual stories</em> that bring ideas to life through design, illustration, and video.</p>
-      <p class="about-body reveal reveal-delay-1">With expertise across digital art, motion design, and video production, I create compelling visuals that connect brands with audiences. My work blends technical precision with creative storytelling.</p>
-      <div class="skills-section reveal reveal-delay-2">
-        <div class="skills-label">Tools & Disciplines</div>
-        <div class="skills-grid">
-          <div class="skill-item">Adobe Photoshop</div>
-          <div class="skill-item">Adobe Illustrator</div>
-          <div class="skill-item">Procreate</div>
-          <div class="skill-item">Canva</div>
-          <div class="skill-item">CapCut</div>
-          <div class="skill-item">AI Creative Tool</div>
+    <nav>
+        <div class="container">
+            <div class="logo">Daniel Yong</div>
+            <div class="nav-links" id="navLinks">
+                <a href="#projects">Projects</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-      </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-meta">
+                <div class="roles">
+                    <span>Creative Designer</span>
+                    <span>Motion Graphics</span>
+                    <span>Video Editor</span>
+                </div>
+                <div class="info">
+                    <div>Based in Malaysia</div>
+                    <div>Available for projects</div>
+                </div>
+            </div>
+            <h1 class="hero-title">Design×<br>Technology</h1>
+            <p>Cinematic visual narratives elevated by artificial intelligence and strategic design thinking.</p>
+            <a href="#projects" class="cta">View My Work</a>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <div class="section-title">Portfolio</div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="ai-video">AI Video</button>
+                <button class="filter-btn" data-filter="video-editing">Video Editing</button>
+                <button class="filter-btn" data-filter="illustration">Illustration</button>
+            </div>
+
+            <!-- AI Video -->
+            <div class="category-block" data-category="ai-video">
+                <div class="category-heading">AI Video</div>
+                <div class="work-grid">
+                    <a class="project">
+                        <div class="project-img loading">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Rolex_Rainbow_Everose_1_x8t5j3.jpg" alt="Rolex Daytona">
+                        </div>
+                        <div class="project-title">Rolex Cosmograph Daytona</div>
+                    </a>
+                    <a class="project">
+                        <div class="project-img loading">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Versace_Eros_1_bnr7g4.jpg" alt="Versace Eros">
+                        </div>
+                        <div class="project-title">Versace Eros Eau de Parfum</div>
+                    </a>
+                    <a class="project">
+                        <div class="project-img loading">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Hermes_Birkin_1_hmpfd2.jpg" alt="Hermès Birkin">
+                        </div>
+                        <div class="project-title">Hermès Leather Goods</div>
+                    </a>
+                    <a class="project">
+                        <div class="project-img loading">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Coca_Cola_Lemon_1_o2kzwc.jpg" alt="Coca-Cola Lemon">
+                        </div>
+                        <div class="project-title">Coca-Cola Lemon Campaign</div>
+                    </a>
+                    <a class="project">
+                        <div class="project-img loading">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/OATSIDE_1_xn6gak.jpg" alt="OATSIDE">
+                        </div>
+                        <div class="project-title">OATSIDE Barista Blend</div>
+                    </a>
+                    <a class="project">
+                        <div class="project-img loading">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Somersby_Shandy_1_pcykzx.jpg" alt="Somersby Shandy">
+                        </div>
+                        <div class="project-title">Somersby Shandy Launch</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Video Editing -->
+            <div class="category-block hidden" data-category="video-editing">
+                <div class="category-heading">Video Editing</div>
+                <div class="work-grid">
+                    <a class="project">
+                        <div class="project-img loading">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill/v1718524199/video_edit_1.jpg">
+                                <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1718524199/sample_edit.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="project-title">Brand Promotional Edit</div>
+                    </a>
+                    <a class="project">
+                        <div class="project-img loading">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill/v1718524199/video_edit_2.jpg">
+                                <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1718524199/sample_edit_2.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="project-title">Cinematic Product Showcase</div>
+                    </a>
+                    <a class="project">
+                        <div class="project-img loading">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill/v1718524199/video_edit_3.jpg">
+                                <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1718524199/sample_edit_3.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="project-title">Motion Graphics Sequence</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Illustration -->
+            <div class="category-block hidden" data-category="illustration">
+                <div class="category-heading">Illustration</div>
+                <div class="work-grid">
+                    <a class="project">
+                        <div class="project-img loading">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Illustration_1_a9k2m3.jpg" alt="Character Illustration">
+                        </div>
+                        <div class="project-title">Character Design</div>
+                    </a>
+                    <a class="project">
+                        <div class="project-img loading">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Illustration_2_b7n5p2.jpg" alt="Digital Painting">
+                        </div>
+                        <div class="project-title">Digital Painting</div>
+                    </a>
+                    <a class="project">
+                        <div class="project-img loading">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Illustration_3_c3q8r1.jpg" alt="Concept Art">
+                        </div>
+                        <div class="project-title">Concept Art</div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="about-heading-label">About Me</div>
+            <div class="about-grid">
+                <div class="about-img"><img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285228/daniel_1_1_jwcmx5.jpg" alt="Daniel Yong"></div>
+                <div class="about-text">
+                    <p class="lede">Design x Technology</p>
+                    <p>Hello~ I am Daniel Yong, a multidisciplinary Creative Designer holding a Bachelor's Degree in Graphic Design. Driven by a passion for the latest design trends, my work lives at the intersection of established design principles and emerging technologies.</p>
+                    <p>I specialize in video editing, motion, illustration, and utilizing AI to enhance existing visual frameworks. Blending high-tech precision with human warmth, I leverage modern tools to elevate creative concepts into impactful, future-proof stories.</p>
+                    <div class="tools-label">Tools & Software</div>
+                    <div class="tools-wrapper">
+                        <div class="tools-group">
+                            <div class="tools-group-title">Design</div>
+                            <ul class="tools-list">
+                                <li>Adobe Photoshop</li>
+                                <li>Adobe Illustrator</li>
+                                <li>Procreate</li>
+                            </ul>
+                        </div>
+                        <div class="tools-group">
+                            <div class="tools-group-title">Video & Content</div>
+                            <ul class="tools-list">
+                                <li>CapCut</li>
+                                <li>Canva</li>
+                            </ul>
+                        </div>
+                        <div class="tools-group">
+                            <div class="tools-group-title">Generative AI</div>
+                            <ul class="tools-list">
+                                <li>Seedance AI</li>
+                                <li>Kling AI</li>
+                                <li>Veo AI</li>
+                                <li>Nano Banana Pro</li>
+                                <li>GPT Image-2</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="https://res.cloudinary.com/du7mtd3bl/image/upload/DanielYong_s_Resume_20260516_023554_0000-1_dgrlzr.pdf" target="_blank" class="download-cv">Download CV</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title" style="color:#888">Contact</div>
+            <h2>Let's work together.</h2>
+            <a href="mailto:danielych999@gmail.com" class="email">danielych999@gmail.com</a>
+            <div class="phone">+60 11-5789 8786</div>
+            <a href="https://wa.me/601157898786" target="_blank" class="whatsapp-btn">WhatsApp Me</a>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 Daniel Yong — All rights reserved.
+    </footer>
+
+    <div id="lightbox" class="lightbox">
+        <button id="lightboxClose" class="lightbox-close" aria-label="Close">&times;</button>
+        <div id="lightboxContent" class="lightbox-content"></div>
     </div>
-  </div>
-</section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-inner">
-    <div class="contact-label reveal">Contact</div>
-    <h2 class="contact-headline reveal reveal-delay-1">Let's create <br>something <em>remarkable.</em></h2>
-    <div class="contact-buttons reveal reveal-delay-2">
-      <a href="https://wa.me/601157898786" class="contact-btn" target="_blank" rel="noopener noreferrer">WhatsApp Me</a>
-      <a href="https://mail.google.com/mail/?view=cm&to=danielych999@gmail.com" class="contact-btn" target="_blank" rel="noopener noreferrer">Email Me</a>
-    </div>
-    <div class="contact-socials reveal reveal-delay-3">
-      <a href="https://behance.net/danielyong" class="social-text-link" target="_blank" rel="noopener">Behance</a>
-      <a href="https://linktree.com/danielyong" class="social-text-link" target="_blank" rel="noopener">Linktree</a>
-      <a href="https://instagram.com/danielyong" class="social-text-link" target="_blank" rel="noopener">Instagram</a>
-    </div>
-  </div>
-</section>
+    <script>
+        const toggle = document.getElementById('menuToggle');
+        const links = document.getElementById('navLinks');
+        toggle.addEventListener('click', () => links.classList.toggle('active'));
+        links.querySelectorAll('a').forEach(a =>
+            a.addEventListener('click', () => links.classList.remove('active'))
+        );
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+                return false;
+            });
+        });
 
-<footer>
-  <p>+60 1157898786 &nbsp;|&nbsp; danielych999@gmail.com</p>
-  <p>© 2026 Daniel Yong — All rights reserved</p>
-</footer>
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const categoryBlocks = document.querySelectorAll('.category-block');
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
-  <div class="modal-card" id="modalCard">
-    <button class="modal-close" onclick="closeModal()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    <div class="modal-visual" id="modalVisual"></div>
-    <video id="modalVideo" controls autoplay style="display: none; width: 100%; height: 100%; object-fit: cover;"><source id="modalVideoSource" src="" type="video/mp4"></video>
-    <div class="modal-body">
-      <div class="modal-cat" id="modalCat"></div>
-      <div class="modal-title" id="modalTitle"></div>
-      <div class="modal-desc" id="modalDesc"></div>
-      <div class="modal-meta">
-        <div class="meta-item"><div class="meta-key">Tools</div><div class="meta-val" id="modalTools"></div></div>
-        <div class="meta-item"><div class="meta-key">Year</div><div class="meta-val" id="modalYear"></div></div>
-      </div>
-    </div>
-  </div>
-</div>
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-<script>
-// ─── Cursor ───
-const cursor = document.getElementById('cursor');
-const follower = document.getElementById('cursorFollower');
-let mx = 0, my = 0, fx = 0, fy = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
-function animFollower() { fx += (mx - fx) * 0.12; fy += (my - fy) * 0.12; follower.style.left = fx + 'px'; follower.style.top = fy + 'px'; requestAnimationFrame(animFollower); }
-animFollower();
-document.querySelectorAll('a, button, .project-card, .filter-btn').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-});
+                // Filter category blocks
+                const filter = btn.dataset.filter;
+                categoryBlocks.forEach(block => {
+                    if (filter === 'all' || block.dataset.category === filter) {
+                        block.classList.remove('hidden');
+                    } else {
+                        block.classList.add('hidden');
+                    }
+                });
+            });
+        });
 
-// ─── Scroll Progress ───
-const progressBar = document.getElementById('progressBar');
-window.addEventListener('scroll', () => {
-  const s = document.documentElement.scrollTop;
-  const h = document.documentElement.scrollHeight - window.innerHeight;
-  progressBar.style.transform = `scaleX(${s/h})`;
-});
+        // CV button tap feedback
+        const cvBtn = document.querySelector('.download-cv');
+        if (cvBtn) {
+            cvBtn.addEventListener('click', () => {
+                cvBtn.classList.remove('tap-fade');
+                // restart animation
+                void cvBtn.offsetWidth;
+                cvBtn.classList.add('tap-fade');
+            });
+            cvBtn.addEventListener('animationend', () => {
+                cvBtn.classList.remove('tap-fade');
+            });
+        }
 
-// ─── Nav scroll ───
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
+        // Lightbox: click a project to view it bigger and play video
+        const lightbox = document.getElementById('lightbox');
+        const lightboxContent = document.getElementById('lightboxContent');
+        const lightboxClose = document.getElementById('lightboxClose');
 
-// ─── Scroll Reveal ───
-const reveals = document.querySelectorAll('.reveal:not(.project-card)');
-const cardReveals = document.querySelectorAll('.project-card');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { 
-    if (e.isIntersecting) { 
-      e.target.classList.add('visible'); 
-      e.target.classList.remove('hidden');
-      observer.unobserve(e.target); 
-    } 
-  });
-}, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+        function openLightbox(sourceEl) {
+            lightboxContent.innerHTML = '';
+            if (sourceEl.tagName === 'VIDEO') {
+                const video = document.createElement('video');
+                video.src = sourceEl.currentSrc || sourceEl.src;
+                video.controls = true;
+                video.playsInline = true;
+                lightboxContent.appendChild(video);
+                // This open is triggered by a user click, so try unmuted first
+                video.play().catch(() => {
+                    // Autoplay with sound blocked; retry muted
+                    video.muted = true;
+                    video.play().catch(() => {});
+                });
+            } else if (sourceEl.tagName === 'IMG') {
+                const img = document.createElement('img');
+                img.src = sourceEl.currentSrc || sourceEl.src;
+                img.alt = sourceEl.alt || '';
+                lightboxContent.appendChild(img);
+            }
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-reveals.forEach(r => observer.observe(r));
-cardReveals.forEach(r => {
-  r.classList.remove('hidden');
-  r.classList.add('visible');
-  observer.observe(r);
-});
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+            lightboxContent.innerHTML = '';
+        }
 
-// ─── Filter ───
-const filterButtons = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
+        document.querySelectorAll('.project').forEach(project => {
+            project.addEventListener('click', () => {
+                const media = project.querySelector('video, img');
+                if (media) openLightbox(media);
+            });
+        });
 
-// First make all cards visible (remove hidden class interference)
-projectCards.forEach(card => {
-  card.classList.remove('hidden');
-  card.classList.add('visible');
-});
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
 
-filterButtons.forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    // Update active button
-    filterButtons.forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-
-    const filterValue = this.getAttribute('data-filter');
-
-    projectCards.forEach(card => {
-      const cardType = card.getAttribute('data-type');
-      if (filterValue === 'all' || cardType === filterValue) {
-        card.style.display = 'block';
-        card.style.opacity = '1';
-        card.style.transform = 'scale(1)';
-        card.style.pointerEvents = 'auto';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
-});
-
-// ─── Project image scroll scale ───
-window.addEventListener('scroll', () => {
-  document.querySelectorAll('.project-visual').forEach(el => {
-    const rect = el.getBoundingClientRect();
-    const center = rect.top + rect.height / 2 - window.innerHeight / 2;
-    const scale = 1 + Math.abs(center) / window.innerHeight * 0.04;
-    el.style.transform = `scale(${Math.min(scale, 1.06)})`;
-  });
-});
-
-// ─── Modal ───
-function openModal(card) {
-  const overlay = document.getElementById('modalOverlay');
-  document.getElementById('modalCat').textContent = card.dataset.cat;
-  document.getElementById('modalTitle').textContent = card.dataset.title;
-  document.getElementById('modalDesc').textContent = card.dataset.desc;
-  document.getElementById('modalTools').textContent = card.dataset.tools;
-  document.getElementById('modalYear').textContent = card.dataset.year;
-  
-  const mv = document.getElementById('modalVisual');
-  const modalVideo = document.getElementById('modalVideo');
-  const videoSource = document.getElementById('modalVideoSource');
-  
-  const videoElement = card.querySelector('video');
-  if (videoElement && videoElement.querySelector('source')) {
-    mv.style.display = 'none';
-    modalVideo.style.display = 'block';
-    videoSource.src = videoElement.querySelector('source').src;
-    modalVideo.load();
-  } else {
-    mv.style.display = 'flex';
-    mv.className = 'modal-visual';
-    mv.style.background = '#f0f0f0';
-    modalVideo.style.display = 'none';
-  }
-  
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeModalOnBg(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-document.getElementById('modalCard').addEventListener('click', e => e.stopPropagation());
-
-// ─── Lightbox ───
-function openLightbox(e, imageSrc) {
-  e.stopPropagation();
-  // For now, just reuse modal
-  const overlay = document.getElementById('modalOverlay');
-  const modalBody = document.querySelector('.modal-body');
-  const mv = document.getElementById('modalVisual');
-  const modalVideo = document.getElementById('modalVideo');
-  
-  mv.innerHTML = `<img src="${imageSrc}" style="width: 100%; height: 100%; object-fit: contain;">`;
-  mv.style.display = 'flex';
-  modalVideo.style.display = 'none';
-  
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-</script>
 </body>
 </html>
