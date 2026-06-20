@@ -178,149 +178,155 @@
             -webkit-backface-visibility: hidden;
         }
 
-        .project-img.loading { opacity: 0.5; }
-        .project:hover .project-img { transform: scale(1.03); }
-        .project-title {
-            font-size: 0.95rem; font-weight: 600; margin-top: 15px;
-            color: var(--black);
-        }
-
-        .contact { background: var(--light-gray); text-align: center; }
-        .contact h2 {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 400;
-            margin-bottom: 40px; letter-spacing: -1px;
-        }
-        .email {
-            display: block; font-size: 1.3rem; font-weight: 500;
-            margin-bottom: 20px; transition: opacity 0.3s;
-        }
-        .email:hover { opacity: 0.7; }
-        .phone {
-            display: block; font-size: 1.1rem; color: var(--gray);
-            margin-bottom: 30px;
-        }
-        .whatsapp-btn {
-            display: inline-block; margin-top: 20px; padding: 15px 40px;
-            border: 1px solid var(--black); font-size: 0.9rem;
-            letter-spacing: 1px; transition: all 0.3s;
-        }
-        .whatsapp-btn:hover { background: var(--black); color: var(--white); }
-
-        footer {
-            padding: 40px 0; background: var(--white); text-align: center;
-            font-size: 0.8rem; color: var(--gray); border-top: 1px solid #eee;
-        }
-
         .lightbox {
-            display: none; position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
-            z-index: 2000; align-items: center; justify-content: center;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92); z-index: 2000;
+            display: none; align-items: center; justify-content: center;
+            padding: 30px;
         }
         .lightbox.active { display: flex; }
-        .lightbox-close {
-            position: absolute; top: 30px; right: 30px; font-size: 40px;
-            color: white; background: none; border: none; cursor: pointer;
-            padding: 0; width: 40px; height: 40px;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .lightbox-close:hover { opacity: 0.7; }
         .lightbox-content {
-            position: relative; max-width: 90%; max-height: 90%;
+            max-width: 90vw; max-height: 90vh;
             display: flex; align-items: center; justify-content: center;
         }
-        .lightbox-content img, .lightbox-content video {
-            max-width: 100%; max-height: 100%;
-            border-radius: 8px;
+        .lightbox-content video, .lightbox-content img {
+            max-width: 90vw; max-height: 90vh;
+            width: auto; height: auto;
+            border-radius: 8px; object-fit: contain;
+        }
+        .lightbox-close {
+            position: absolute; top: 20px; right: 30px;
+            background: none; border: none; color: var(--white);
+            font-size: 2.5rem; line-height: 1; cursor: pointer;
+            z-index: 2001; padding: 5px 10px;
+        }
+        .project-img { position: relative; }
+        .project-img::after {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 56px; height: 56px; border-radius: 50%;
+            background: rgba(255,255,255,0.85);
+            display: none; pointer-events: none;
+        }
+        .project-img:has(video)::after {
+            display: block;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23111111'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: center;
+            background-size: 22px;
+        }
+        .project:hover .project-img { transform: scale(0.98); }
+        .project-label {
+            position: absolute; top: 12px; left: 12px;
+            background: rgba(255,255,255,0.9); color: var(--black);
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
+            z-index: 2;
         }
 
-        /* Filter Buttons */
         .filter-buttons {
-            display: flex; gap: 15px; margin-bottom: 60px;
-            flex-wrap: wrap; align-items: center;
+            display: flex; gap: 12px; margin-bottom: 50px; flex-wrap: wrap;
         }
         .filter-btn {
-            padding: 10px 20px; border: 1px solid #ddd;
-            background: transparent; font-size: 0.85rem;
-            letter-spacing: 1px; text-transform: uppercase;
-            cursor: pointer; transition: all 0.3s;
-            color: var(--black);
+            padding: 7px 16px; border: 1px solid #ddd; background: var(--white);
+            color: var(--gray); font-size: 0.7rem; letter-spacing: 1px;
+            font-weight: 700; cursor: pointer; transition: all 0.3s; text-transform: uppercase;
+            border-radius: 30px;
         }
-        .filter-btn:hover { border-color: var(--black); }
-        .filter-btn.active {
-            background: var(--black); color: var(--white);
-            border-color: var(--black);
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--black); color: var(--white); border-color: var(--black);
         }
 
-        /* Mobile responsiveness */
-        @media (max-width: 1024px) {
-            .container { padding: 0 30px; }
-            .work-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
-            .tools-wrapper { grid-template-columns: 1fr 1fr; }
-            .about-grid { grid-template-columns: 1fr; }
-            .about-img { max-width: 100%; }
+        .contact { text-align: center; background: var(--black); color: var(--white); }
+        .contact h2 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            margin-bottom: 30px; letter-spacing: -1px;
         }
+        .contact a.email {
+            font-size: 0.95rem; color: #aaa; transition: opacity 0.3s;
+        }
+        .contact a.email:hover { opacity: 0.6; }
+        .contact .phone {
+            font-size: 0.95rem; color: #aaa; letter-spacing: 0.5px;
+            margin-top: 12px;
+        }
+        .whatsapp-btn,
+        .whatsapp-btn:link,
+        .whatsapp-btn:visited,
+        .whatsapp-btn:active {
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-top: 35px; padding: 12px 30px;
+            background: #ffffff !important; color: #000000 !important; border-radius: 30px;
+            font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; transition: opacity 0.3s; opacity: 1 !important;
+        }
+        .whatsapp-btn:hover { opacity: 0.85; background: #ffffff !important; }
+        .whatsapp-btn:focus { outline: none; }
+        .social { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
+        .social a {
+            font-size: 0.85rem; letter-spacing: 1px;
+            opacity: 0.7; transition: opacity 0.3s;
+        }
+        .social a:hover { opacity: 1; }
+
+        footer {
+            padding: 30px 0; text-align: center;
+            font-size: 0.8rem; color: var(--gray); letter-spacing: 1px;
+        }
+
         @media (max-width: 768px) {
-            .container { padding: 0 20px; }
-            .nav-links { gap: 20px; font-size: 0.85rem; }
-            .hero-title { font-size: clamp(2.5rem, 10vw, 4rem); }
-            .hero-meta { flex-direction: column; text-align: left; }
-            .hero-meta .info { text-align: left; }
-            .menu-toggle { display: flex; }
-            .nav-links { position: absolute; top: 70px; left: 0; width: 100%;
-                background: white; flex-direction: column; gap: 0;
-                padding: 30px 40px; display: none;
+            .container { padding: 0 25px; }
+            .hero-meta { flex-direction: column; gap: 10px; font-size: 0.75rem; }
+            .hero-meta .info { text-align: left; flex-direction: column; gap: 4px; }
+            .nav-links {
+                position: fixed; top: 70px; right: -100%;
+                flex-direction: column; background: var(--white);
+                width: 100%; padding: 40px; gap: 25px;
+                transition: right 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             }
-            .nav-links.active { display: flex; }
-            .work-grid { grid-template-columns: 1fr; }
-            .tools-wrapper { grid-template-columns: 1fr; }
-            section { padding: 80px 0; }
-            .contact h2 { font-size: 2rem; }
-            .filter-buttons { gap: 10px; }
-            .filter-btn { padding: 8px 16px; font-size: 0.75rem; }
+            .nav-links.active { right: 0; }
+            .menu-toggle { display: flex; }
+            .about-grid { grid-template-columns: 1fr; gap: 32px; }
+            .about-img { max-width: 100%; width: 100%; aspect-ratio: 16/10; }
+            .about-text .lede { margin-bottom: 30px; }
+            .tools-wrapper { grid-template-columns: 1fr; gap: 18px; }
+            .work-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .project h3 { font-size: 1rem; }
+            .project span { font-size: 0.7rem; }
+            .project-category { font-size: 0.65rem; padding: 3px 8px; }
+            section { padding: 50px 0; }
         }
     </style>
 </head>
 <body>
+
     <nav>
         <div class="container">
-            <div class="logo">Daniel Yong</div>
+            <div class="logo">DANIEL<span style="color:var(--gray)">.</span>YONG</div>
             <div class="nav-links" id="navLinks">
-                <a href="#projects">Projects</a>
+                <a href="#work">Projects</a>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
             </div>
             <div class="menu-toggle" id="menuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
 
-    <section class="hero">
+    <header class="hero">
         <div class="container">
             <div class="hero-meta">
                 <div class="roles">
-                    <span>Creative Designer</span>
-                    <span>Motion Graphics</span>
-                    <span>Video Editor</span>
-                </div>
-                <div class="info">
-                    <div>Based in Malaysia</div>
-                    <div>Available for projects</div>
+                    <span>AI Video Artist</span><span>Illustrator</span><span>Video Editor</span>
                 </div>
             </div>
-            <h1 class="hero-title">Design×<br>Technology</h1>
-            <p>Cinematic visual narratives elevated by artificial intelligence and strategic design thinking.</p>
-            <a href="#projects" class="cta">View My Work</a>
+            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781847836/Hook_image.png" alt="Portfolio" class="hero-title-img">
         </div>
-    </section>
+    </header>
 
-    <section id="projects">
+    <section id="work" style="padding-top: 20px;">
         <div class="container">
-            <div class="section-title">Portfolio</div>
-
+            <div class="section-title">Projects</div>
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="ai-video">AI Video</button>
@@ -328,102 +334,141 @@
                 <button class="filter-btn" data-filter="illustration">Illustration</button>
             </div>
 
-            <!-- AI Video -->
             <div class="category-block" data-category="ai-video">
                 <div class="category-heading">AI Video</div>
                 <div class="work-grid">
-                    <a class="project">
-                        <div class="project-img loading">
-                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Rolex_Rainbow_Everose_1_x8t5j3.jpg" alt="Rolex Daytona">
+                    <div class="project" data-category="ai-video">
+                        <div class="project-img">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_2/v1781285031/Untitled_design_st5tht.jpg" src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285031/Untitled_design_st5tht.mp4" muted loop playsinline preload="metadata"></video>
                         </div>
-                        <div class="project-title">Rolex Cosmograph Daytona</div>
-                    </a>
-                    <a class="project">
-                        <div class="project-img loading">
-                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Versace_Eros_1_bnr7g4.jpg" alt="Versace Eros">
+                    </div>
+                    <div class="project" data-category="ai-video">
+                        <div class="project-img">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285029/done_sele_1_zmao0y.jpg" src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285029/done_sele_1_zmao0y.mp4" muted loop playsinline preload="metadata"></video>
                         </div>
-                        <div class="project-title">Versace Eros Eau de Parfum</div>
-                    </a>
-                    <a class="project">
-                        <div class="project-img loading">
-                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Hermes_Birkin_1_hmpfd2.jpg" alt="Hermès Birkin">
+                    </div>
+                    <div class="project" data-category="ai-video">
+                        <div class="project-img">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285017/0509_5_ui60uq.jpg" src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285017/0509_5_ui60uq.mp4" muted loop playsinline preload="metadata"></video>
                         </div>
-                        <div class="project-title">Hermès Leather Goods</div>
-                    </a>
-                    <a class="project">
-                        <div class="project-img loading">
-                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Coca_Cola_Lemon_1_o2kzwc.jpg" alt="Coca-Cola Lemon">
+                    </div>
+                    <div class="project" data-category="ai-video">
+                        <div class="project-img">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285015/0604_1_uh2ts7.jpg" src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285015/0604_1_uh2ts7.mp4" muted loop playsinline preload="metadata"></video>
                         </div>
-                        <div class="project-title">Coca-Cola Lemon Campaign</div>
-                    </a>
-                    <a class="project">
-                        <div class="project-img loading">
-                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/OATSIDE_1_xn6gak.jpg" alt="OATSIDE">
+                    </div>
+                    <div class="project" data-category="ai-video">
+                        <div class="project-img">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285007/0602_1_ogpqa4.jpg" src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285007/0602_1_ogpqa4.mp4" muted loop playsinline preload="metadata"></video>
                         </div>
-                        <div class="project-title">OATSIDE Barista Blend</div>
-                    </a>
-                    <a class="project">
-                        <div class="project-img loading">
-                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Somersby_Shandy_1_pcykzx.jpg" alt="Somersby Shandy">
+                    </div>
+                    <div class="project" data-category="ai-video">
+                        <div class="project-img">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781284940/0512_2_h23ffk.jpg" src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781284940/0512_2_h23ffk.mp4" muted loop playsinline preload="metadata"></video>
                         </div>
-                        <div class="project-title">Somersby Shandy Launch</div>
-                    </a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Video Editing -->
-            <div class="category-block hidden" data-category="video-editing">
+            <div class="category-block" data-category="video-editing">
                 <div class="category-heading">Video Editing</div>
                 <div class="work-grid">
-                    <a class="project">
-                        <div class="project-img loading">
-                            <video poster="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill/v1718524199/video_edit_1.jpg">
-                                <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1718524199/sample_edit.mp4" type="video/mp4">
-                            </video>
+                    <div class="project" data-category="video-editing">
+                        <div class="project-img">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285719/6%E6%9C%8825%E6%97%A5danielvideo_yevxeg.jpg" src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285719/6%E6%9C%8825%E6%97%A5danielvideo_yevxeg.mp4" muted loop playsinline preload="metadata"></video>
                         </div>
-                        <div class="project-title">Brand Promotional Edit</div>
-                    </a>
-                    <a class="project">
-                        <div class="project-img loading">
-                            <video poster="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill/v1718524199/video_edit_2.jpg">
-                                <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1718524199/sample_edit_2.mp4" type="video/mp4">
-                            </video>
+                    </div>
+                    <div class="project" data-category="video-editing">
+                        <div class="project-img">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285714/daniel_video_3_n5joh6.jpg" src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285714/daniel_video_3_n5joh6.mp4" muted loop playsinline preload="metadata"></video>
                         </div>
-                        <div class="project-title">Cinematic Product Showcase</div>
-                    </a>
-                    <a class="project">
-                        <div class="project-img loading">
-                            <video poster="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill/v1718524199/video_edit_3.jpg">
-                                <source src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1718524199/sample_edit_3.mp4" type="video/mp4">
-                            </video>
+                    </div>
+                    <div class="project" data-category="video-editing">
+                        <div class="project-img">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285710/daniel_video_2_new_l2mapt.jpg" src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285710/daniel_video_2_new_l2mapt.mp4" muted loop playsinline preload="metadata"></video>
                         </div>
-                        <div class="project-title">Motion Graphics Sequence</div>
-                    </a>
+                    </div>
+                    <div class="project" data-category="video-editing">
+                        <div class="project-img">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285705/danielvideo_5_evqb5s.jpg" src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285705/danielvideo_5_evqb5s.mp4" muted loop playsinline preload="metadata"></video>
+                        </div>
+                    </div>
+                    <div class="project" data-category="video-editing">
+                        <div class="project-img">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285690/danielvideeo4_xuomp9.jpg" src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285690/danielvideeo4_xuomp9.mp4" muted loop playsinline preload="metadata"></video>
+                        </div>
+                    </div>
+                    <div class="project" data-category="video-editing">
+                        <div class="project-img">
+                            <video poster="https://res.cloudinary.com/du7mtd3bl/video/upload/so_0/v1781285667/daniel_video_1_%E8%91%AB%E8%8A%A6%E9%B1%BC%E8%B7%83_1_nr1afk.jpg" src="https://res.cloudinary.com/du7mtd3bl/video/upload/v1781285667/daniel_video_1_%E8%91%AB%E8%8A%A6%E9%B1%BC%E8%B7%83_1_nr1afk.mp4" muted loop playsinline preload="metadata"></video>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Illustration -->
-            <div class="category-block hidden" data-category="illustration">
+            <div class="category-block" data-category="illustration">
                 <div class="category-heading">Illustration</div>
                 <div class="work-grid">
-                    <a class="project">
-                        <div class="project-img loading">
-                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Illustration_1_a9k2m3.jpg" alt="Character Illustration">
+                    <div class="project" data-category="illustration">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285806/Image_20231029235252_iatv4v.jpg" alt="Illustration 01" loading="lazy">
                         </div>
-                        <div class="project-title">Character Design</div>
-                    </a>
-                    <a class="project">
-                        <div class="project-img loading">
-                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Illustration_2_b7n5p2.jpg" alt="Digital Painting">
+                    </div>
+                    <div class="project" data-category="illustration">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285803/Image_20231118175802_irdw9b.jpg" alt="Illustration 02" loading="lazy">
                         </div>
-                        <div class="project-title">Digital Painting</div>
-                    </a>
-                    <a class="project">
-                        <div class="project-img loading">
-                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/w_400,h_640,c_fill,so_0/v1718524199/Illustration_3_c3q8r1.jpg" alt="Concept Art">
+                    </div>
+                    <div class="project" data-category="illustration">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285801/Image_20231111183154_ssnrs9.jpg" alt="Illustration 03" loading="lazy">
                         </div>
-                        <div class="project-title">Concept Art</div>
-                    </a>
+                    </div>
+                    <div class="project" data-category="illustration">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285799/Image_20231111183121_auphjy.jpg" alt="Illustration 04" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="illustration">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285796/Image_20231111183151_gkjibr.jpg" alt="Illustration 05" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="illustration">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285794/Image_20231111183158_efzxgf.jpg" alt="Illustration 06" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="illustration">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285791/d01acdaa1e6175a3bdeb01c29c2b25fb_2_zz3bvu.jpg" alt="Illustration 07" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="illustration">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285788/1e23ec85cf2965db8dcc9fdb5e518b08_1_axtjyy.jpg" alt="Illustration 08" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="illustration">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285786/b8407ee66fbc6156939b8454e9a6bdb7_1_rv0yq6.jpg" alt="Illustration 09" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="illustration">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285784/59e2a2e7201ea61011797696a72b4052_1_gnowjt.jpg" alt="Illustration 10" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="illustration">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285782/2d51d1cf825b906b5d5199d396213290_1_xhyjti.jpg" alt="Illustration 11" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="illustration">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1781285780/9b65d559576be522bd5aed7379776c76_1_eabapk.jpg" alt="Illustration 12" loading="lazy">
+                        </div>
+                    </div>
                 </div>
             </div>
 
