@@ -157,12 +157,29 @@
             text-transform: uppercase; padding-bottom: 15px;
             margin-bottom: 30px; border-bottom: 1px solid #e0e0e0;
         }
-        .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .product-group { margin-bottom: 50px; }
+        .product-group:last-child { margin-bottom: 0; }
+        .work-grid.ai-image-grid { gap: 4px !important; }
+        .ai-image-grid .project-img { border-radius: 0; }
+        .work-grid.ai-image-grid {
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto auto;
+        }
+        .work-grid.ai-image-grid .project:nth-child(1) { grid-column: 1; grid-row: 1; }
+        .work-grid.ai-image-grid .project:nth-child(2) { grid-column: 2; grid-row: 1; }
+        .work-grid.ai-image-grid .project:nth-child(3) { grid-column: 3; grid-row: 1; }
+        .work-grid.ai-image-grid .project:nth-child(4) { grid-column: 1; grid-row: 2; }
+        .work-grid.ai-image-grid .project:nth-child(5) { grid-column: 2; grid-row: 2; }
+        .work-grid.ai-image-grid .project:nth-child(6) { grid-column: 3; grid-row: 2; }
+        .work-grid.ai-image-grid .project:nth-child(7) { grid-column: 1; grid-row: 3; }
+        .work-grid.ai-image-grid .project:nth-child(8) { grid-column: 2; grid-row: 3; }
+        .work-grid.ai-image-grid .project:nth-child(9) { grid-column: 3; grid-row: 3; }
         .project.hidden { display: none; }
         .project { cursor: pointer; display: block; position: relative; }
         .project-img {
             position: relative;
-            aspect-ratio: 9/16; background: var(--light-gray); overflow: hidden;
+            aspect-ratio: 4/5; background: var(--light-gray); overflow: hidden;
             border-radius: 8px; display: flex; align-items: center;
             justify-content: center; color: var(--gray); transition: transform 0.4s;
         }
@@ -329,10 +346,164 @@
             <div class="section-title">Projects</div>
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="ai-image">AI Image</button>
                 <button class="filter-btn" data-filter="ugc-ai">UGC Content (AI)</button>
                 <button class="filter-btn" data-filter="ai-video">AI Video</button>
                 <button class="filter-btn" data-filter="video-editing">Video Editing</button>
                 <button class="filter-btn" data-filter="illustration">Illustration</button>
+            </div>
+
+            <div class="category-block" data-category="ai-image">
+                <div class="category-heading">AI Image</div>
+                <div class="product-group">
+                <div class="work-grid ai-image-grid">
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1790106268/Generated_Image_September_21_2026_-_11_19AM_ums8ux.jpg" alt="Aiken Facial Cleanser 01" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1790106268/Generated_Image_September_21_2026_-_10_46AM_svkozk.jpg" alt="Aiken Facial Cleanser 02" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1790106268/Generated_Image_September_21_2026_-_11_09AM_1_dxy1qm.jpg" alt="Aiken Facial Cleanser 03" loading="lazy" style="transform: scale(1.35); object-position: center 40%;">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1790106267/Generated_Image_September_21_2026_-_10_56AM_aiqsre.jpg" alt="Aiken Facial Cleanser 04" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1790106266/Generated_Image_September_21_2026_-_10_42AM_c0hhir.jpg" alt="Aiken Facial Cleanser 05" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1790106266/Generated_Image_September_21_2026_-_9_12AM_awuuvu.jpg" alt="Aiken Facial Cleanser 06" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1790106266/Generated_Image_September_21_2026_-_9_50AM_io3ehj.jpg" alt="Aiken Facial Cleanser 07" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1790106266/Generated_Image_September_21_2026_-_10_39AM_i99ijz.jpg" alt="Aiken Facial Cleanser 08" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/v1790106266/Generated_Image_September_21_2026_-_9_12AM_1_owhgku.jpg" alt="Aiken Facial Cleanser 09" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="product-group">
+                <div class="work-grid ai-image-grid">
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_5_43AM_epadeo.jpg" alt="Milo Malt Drink 01" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_5_38AM_jcjb5r.jpg" alt="Milo Malt Drink 02" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_5_10AM_km4ruh.jpg" alt="Milo Malt Drink 03" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_5_18AM_xsq4ng.jpg" alt="Milo Malt Drink 04" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_5_33AM_2_yfupaw.jpg" alt="Milo Malt Drink 05" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_5_30AM_goj2ii.jpg" alt="Milo Malt Drink 06" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_5_14AM_t5krle.jpg" alt="Milo Malt Drink 07" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_5_47AM_pagqy8.jpg" alt="Milo Malt Drink 08" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/IMG_20260920_052614_hoxb3g.jpg" alt="Milo Malt Drink 09" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="product-group">
+                <div class="work-grid ai-image-grid">
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_4_39AM_xa5tz5.jpg" alt="Kundal Shampoo 01" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_4_30AM_fte5lj.jpg" alt="Kundal Shampoo 02" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_4_04AM_zhrgue.jpg" alt="Kundal Shampoo 03" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_4_03AM_lybgvf.jpg" alt="Kundal Shampoo 04" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/c5c46f27-7d39-4104-b3e7-15359837af4a_i2uc4b.jpg" alt="Kundal Shampoo 05" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_3_53AM_1_f51xfu.jpg" alt="Kundal Shampoo 06" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_3_53AM_2_i2qhiw.jpg" alt="Kundal Shampoo 07" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_3_53AM_xoudx6.jpg" alt="Kundal Shampoo 08" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="project" data-category="ai-image">
+                        <div class="project-img">
+                            <img src="https://res.cloudinary.com/du7mtd3bl/image/upload/Generated_Image_September_20_2026_-_3_56AM_edvagv.jpg" alt="Kundal Shampoo 09" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
 
                         <div class="category-block" data-category="ugc-ai">
